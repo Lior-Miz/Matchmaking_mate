@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,6 +27,10 @@ public class RegisterFragment extends Fragment {
 
     private EditText etName, etEmail, etPassword, etPhone;
     private Button btnRegister;
+
+    private TextView tvAlreadyHaveAccount;
+
+
     private CheckBox cbFifa, cbFortnite, cbCod, cbMinecraft, cbGta, cbNba;
     private FirebaseAuth auth;
     private DatabaseReference dbRef;
@@ -46,6 +51,7 @@ public class RegisterFragment extends Fragment {
         etPassword = view.findViewById(R.id.etRegisterPassword);
         etPhone = view.findViewById(R.id.etRegisterPhone);
         btnRegister = view.findViewById(R.id.btnRegister);
+        tvAlreadyHaveAccount=view.findViewById(R.id.tvAlreadyHaveAccount);
 
         cbFifa = view.findViewById(R.id.cbFifa);
         cbFortnite = view.findViewById(R.id.cbFortnite);
@@ -53,6 +59,16 @@ public class RegisterFragment extends Fragment {
         cbMinecraft = view.findViewById(R.id.cbMinecraft);
         cbGta = view.findViewById(R.id.cbGta);
         cbNba = view.findViewById(R.id.cbNba);
+
+        tvAlreadyHaveAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getParentFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, new LoginFragment())
+                        .commit();
+            }
+
+        });
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
