@@ -2,8 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:background="@color/white"
     android:gravity="center"
+    android:orientation="vertical"
     android:padding="24dp">
 
     <EditText
@@ -16,8 +17,8 @@
         android:id="@+id/Password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:hint="Password" />
+        android:hint="Password"
+        android:inputType="textPassword" />
 
     <Button
         android:id="@+id/btnLogin"
@@ -29,10 +30,10 @@
         android:id="@+id/tvGotoRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="אין לך חשבון? הירשם כאן"
-        android:textSize="16sp"
         android:layout_marginTop="20dp"
+        android:text="אין לך חשבון? הירשם כאן"
         android:textColor="#0000EE"
-        android:textStyle="bold"/>
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
 </LinearLayout>
