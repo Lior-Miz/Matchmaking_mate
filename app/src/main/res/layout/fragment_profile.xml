@@ -69,4 +69,12 @@
         android:backgroundTint="#F44336"
         android:layout_marginTop="10dp"/>
 
+    <Button
+        android:id="@+id/btnBackProf"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="#36A5F4"
+        android:text="Go Back" />
+
 </LinearLayout>

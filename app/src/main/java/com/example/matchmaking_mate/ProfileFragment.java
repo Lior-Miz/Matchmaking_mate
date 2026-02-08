@@ -29,6 +29,8 @@ public class ProfileFragment extends Fragment {
     private TextView tvName, tvEmail, tvPhone;
     private ChipGroup chipGroupGames;
     private Button btnLogout;
+
+    private Button btnBackProf;
     private FirebaseAuth auth;
     private DatabaseReference dbRef;
 
@@ -48,10 +50,19 @@ public class ProfileFragment extends Fragment {
         tvPhone = view.findViewById(R.id.tvProfilePhone);
         chipGroupGames = view.findViewById(R.id.chipGroupGames);
         btnLogout = view.findViewById(R.id.btnLogout);
+        btnBackProf = view.findViewById(R.id.btnBackProf);
+
 
         if (currentUser != null) {
             loadUserProfile(currentUser.getUid());
         }
+
+        btnBackProf.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getParentFragmentManager().popBackStack();
+            }
+        });
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
