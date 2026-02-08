@@ -126,6 +126,9 @@ public class RegisterFragment extends Fragment {
         User newUser = new User(name, email, phone, userId);
         newUser.setFavoriteGames(selectedGames);
 
+        List<String> friends = new ArrayList<>();
+        newUser.setFriends(friends);
+
         dbRef.child("Users").child(userId).setValue(newUser)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override

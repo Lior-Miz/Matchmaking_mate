@@ -21,7 +21,7 @@ import java.util.List;
 public class OtherUserProfileFragment extends Fragment {
 
     private TextView tvName, tvPhone;
-    private Button btnChat, btnBack;
+    private Button btnChat, btnBack, btnAddFriend;
 
     private String userId;
     private String userName;
@@ -39,6 +39,8 @@ public class OtherUserProfileFragment extends Fragment {
         tvPhone = view.findViewById(R.id.tvOtherUserPhone);
         btnChat = view.findViewById(R.id.btnOpenChat);
         btnBack = view.findViewById(R.id.btnBackToMatches);
+        btnAddFriend = view.findViewById(R.id.btnFriend);
+
         OtherchipGroupGames = view.findViewById(R.id.OtherchipGroupGames);
 
         if (getArguments() != null) {
@@ -46,6 +48,8 @@ public class OtherUserProfileFragment extends Fragment {
             userName = getArguments().getString("userName");
             String userPhone = getArguments().getString("userPhone");
             ArrayList<String> favoriteGames = getArguments().getStringArrayList("favoriteGames");
+
+
 
             if (userName != null) {
                 tvName.setText(userName);
@@ -74,6 +78,12 @@ public class OtherUserProfileFragment extends Fragment {
             }
         });
 
+        btnAddFriend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         return view;
     }
 
