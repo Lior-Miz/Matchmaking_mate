@@ -11,7 +11,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import com.google.firebase.auth.FirebaseAuth;
 
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
@@ -81,11 +88,42 @@ public class OtherUserProfileFragment extends Fragment {
         btnAddFriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                addFriend();
             }
         });
         return view;
     }
+    private void addFriend() {
+        String myId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Users").child(myId);
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User me = snapshot.getValue(User.class);
+                if (me != null) {
+                    List<String> friends = me.getFriends();
+                    if (!friends.contains(userId)) {
+                        friends.add(userId);
+                        myRef.child("friends").setValue(friends).addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(getContext(), "Friend added!", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getContext(), "Failed to add friend", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        } else {
+                        Toast.makeText(getContext(), "Already a friend", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getContext(), "Failed to add friend", Toast.LENGTH_SHORT).show();
+            }
+        });
+                            }
+
 
     private void displayFavoriteGames(List<String> games) {
         if (OtherchipGroupGames == null || getContext() == null) return;
@@ -121,3 +159,5 @@ public class OtherUserProfileFragment extends Fragment {
                 .commit();
     }
 }
+
+

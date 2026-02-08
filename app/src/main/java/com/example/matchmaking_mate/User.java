@@ -17,7 +17,7 @@ public class User {
         this.favoriteGames = new ArrayList<>();
     }
 
-    public User(String fullname, String email, String phone, String userid, User) {
+    public User(String fullname, String email, String phone, String userid) {
         this.fullname = fullname;
         this.email = email;
         this.phone = phone;
