@@ -143,6 +143,9 @@ public class MatchesFragment extends Fragment {
         bundle.putString("userId", user.getUserid());
         bundle.putString("userName", user.getFullname());
         bundle.putString("userPhone", user.getPhone());
+        if (user.getFavoriteGames() != null) {
+            bundle.putStringArrayList("favoriteGames", new ArrayList<>(user.getFavoriteGames()));
+        }
         fragment.setArguments(bundle);
 
         getParentFragmentManager().beginTransaction()

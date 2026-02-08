@@ -30,7 +30,6 @@ public class RegisterFragment extends Fragment {
 
     private TextView tvAlreadyHaveAccount;
 
-
     private CheckBox cbFifa, cbFortnite, cbCod, cbMinecraft, cbGta, cbNba;
     private FirebaseAuth auth;
     private DatabaseReference dbRef;
