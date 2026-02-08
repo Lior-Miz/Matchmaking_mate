@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E0F7FA"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="Welcome Home!"
+        android:textColor="#006064"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/Email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:gravity="center"
+        android:text="Loading email..."
+        android:textColor="#004D40"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/btnFindMatches"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Find Matches" />
+
+    <Button
+        android:id="@+id/btnMoveToProfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:backgroundTint="#0097A7"
+        android:padding="12dp"
+        android:text="Go to My Profile"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#FF5252"
+        android:text="Logout" />
+
+</LinearLayout>

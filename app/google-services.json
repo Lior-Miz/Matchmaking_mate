@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "987344188090",
+    "project_id": "matchmaking-mate-db",
+    "storage_bucket": "matchmaking-mate-db.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:987344188090:android:fa0da5b83d9e23f8298883",
+        "android_client_info": {
+          "package_name": "com.example.matchmaking_mate"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrIiY6Owa0Fp9CVszsCJqclxpzhEZ-rGU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
