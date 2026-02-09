@@ -13,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import com.google.firebase.auth.FirebaseAuth;
 
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,6 +33,9 @@ public class OtherUserProfileFragment extends Fragment {
     private String userName;
     private ChipGroup OtherchipGroupGames;
 
+    private ChipGroup ChipSuggestFriend;
+
+
     public OtherUserProfileFragment() {
     }
 
@@ -48,6 +50,7 @@ public class OtherUserProfileFragment extends Fragment {
         btnBack = view.findViewById(R.id.btnBackToMatches);
         btnAddFriend = view.findViewById(R.id.btnFriend);
 
+        ChipSuggestFriend = view.findViewById(R.id.ChipSuggestFriend);
         OtherchipGroupGames = view.findViewById(R.id.OtherchipGroupGames);
 
         if (getArguments() != null) {
@@ -57,7 +60,6 @@ public class OtherUserProfileFragment extends Fragment {
             ArrayList<String> favoriteGames = getArguments().getStringArrayList("favoriteGames");
 
 
-
             if (userName != null) {
                 tvName.setText(userName);
             }
@@ -65,6 +67,8 @@ public class OtherUserProfileFragment extends Fragment {
                 tvPhone.setText(userPhone);
             }
             displayFavoriteGames(favoriteGames);
+            loadSuggestedFriends();
+
         }
 
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -144,6 +148,91 @@ public class OtherUserProfileFragment extends Fragment {
             noGamesChip.setText("No games selected");
             OtherchipGroupGames.addView(noGamesChip);
         }
+    }
+
+    private void displaySuggestedFriend(List<String> suggested_friends) {
+        if (ChipSuggestFriend == null || getContext() == null) return;
+        ChipSuggestFriend.removeAllViews();
+
+        if (suggested_friends != null && !suggested_friends.isEmpty()) {
+            for (String friend : suggested_friends) {
+                Chip chip = new Chip(getContext());
+                chip.setText(friend);
+                chip.setChipBackgroundColor(ColorStateList.valueOf(Color.parseColor("#E3F2FD")));
+                chip.setTextColor(Color.BLACK);
+                chip.setClickable(false);
+                chip.setCheckable(false);
+                ChipSuggestFriend.addView(chip);
+            }
+        } else {
+            Chip noFriendsChip = new Chip(getContext());
+            noFriendsChip.setText("No friends to suggest");
+            ChipSuggestFriend.addView(noFriendsChip);
+        }
+    }
+
+    private void loadSuggestedFriends() {
+        String myId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference FriendRef = FirebaseDatabase.getInstance().getReference("Users").child(userId);
+        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Users").child(myId);
+
+        FriendRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User friend = snapshot.getValue(User.class);
+                if (friend != null) {
+                    List<String> friends_ofa_friend = friend.getFriends();
+                    List<String> suggested_friends = new ArrayList<>();
+
+                    for (String friendId : friends_ofa_friend) {
+                        DatabaseReference FriendOfFriendRef = FirebaseDatabase.getInstance().getReference("Users").child(friendId);
+                        FriendOfFriendRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                User friendOfFriend = snapshot.getValue(User.class);
+                                if (friendOfFriend != null) {
+                                    List<String> friends_of_friend_games = friendOfFriend.getFavoriteGames();
+
+                                    myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            User me = snapshot.getValue(User.class);
+                                            if (me != null) {
+                                                List<String> myGames = me.getFavoriteGames();
+                                                List<String> myFriends = me.getFriends();
+
+                                                if (!myFriends.contains(friendId) && !friendId.equals(me.getUserid())) {
+                                                    for (String game : myGames) {
+                                                        if (friends_of_friend_games.contains(game)) {
+                                                            suggested_friends.add(friendOfFriend.getFullname());
+                                                            break;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            displaySuggestedFriend(suggested_friends);
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+                                        }
+                                    });
+
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                            }
+                        });
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
     }
 
     private void openChat() {
