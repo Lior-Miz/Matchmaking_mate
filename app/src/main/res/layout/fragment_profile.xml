@@ -61,6 +61,24 @@
         app:singleSelection="false">
     </com.google.android.material.chip.ChipGroup>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="My Friends:"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"/>
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipGroupFriends"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        app:chipSpacing="8dp"
+        app:singleSelection="false">
+    </com.google.android.material.chip.ChipGroup>
+
     <Button
         android:id="@+id/btnLogout"
         android:layout_width="match_parent"

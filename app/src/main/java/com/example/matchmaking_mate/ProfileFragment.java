@@ -27,7 +27,7 @@ import java.util.List;
 public class ProfileFragment extends Fragment {
 
     private TextView tvName, tvEmail, tvPhone;
-    private ChipGroup chipGroupGames;
+    private ChipGroup chipGroupGames, chipGroupFriends;
     private Button btnLogout;
 
     private Button btnBackProf;
@@ -51,6 +51,7 @@ public class ProfileFragment extends Fragment {
         chipGroupGames = view.findViewById(R.id.chipGroupGames);
         btnLogout = view.findViewById(R.id.btnLogout);
         btnBackProf = view.findViewById(R.id.btnBackProf);
+        chipGroupFriends = view.findViewById(R.id.chipGroupFriends);
 
 
         if (currentUser != null) {
@@ -106,6 +107,38 @@ public class ProfileFragment extends Fragment {
                         noGamesChip.setText("No games selected");
                         chipGroupGames.addView(noGamesChip);
                     }
+                }
+                chipGroupFriends.removeAllViews();
+                List<String> friendsIds = user.getFriends();
+
+                if (friendsIds != null && !friendsIds.isEmpty()) {
+                    for (String friendId : friendsIds) {
+                        DatabaseReference friendRef = FirebaseDatabase.getInstance().getReference("Users").child(friendId);
+                        friendRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                String friendName = snapshot.child("fullname").getValue(String.class);
+
+                                if (friendName != null) {
+
+                                    Chip chip = new Chip(getContext());
+                                    chip.setText(friendName);
+                                    chip.setChipBackgroundColor(ColorStateList.valueOf(Color.parseColor("#E3F2FD")));
+                                    chip.setTextColor(Color.BLACK);
+                                    chip.setClickable(false);
+                                    chip.setCheckable(false);
+                                    chipGroupFriends.addView(chip);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {}
+                        });
+                    }
+                } else {
+                    Chip noFriendsChip = new Chip(getContext());
+                    noFriendsChip.setText("No friends yet");
+                    chipGroupFriends.addView(noFriendsChip);
                 }
             }
 
