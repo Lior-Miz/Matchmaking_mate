@@ -115,6 +115,7 @@ public class OtherUserProfileFragment extends Fragment {
             public void onClick(View v) {
                 addFriend();
                 btnAddFriend.setVisibility(View.GONE);
+                //loadSuggestedFriends();
             }
         });
         return view;
@@ -122,22 +123,27 @@ public class OtherUserProfileFragment extends Fragment {
     private void addFriend() {
         String myId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Users").child(myId);
+
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User me = snapshot.getValue(User.class);
                 if (me != null) {
                     List<String> friends = me.getFriends();
+                    if (friends == null) friends = new ArrayList<>();
+
                     if (!friends.contains(userId)) {
                         friends.add(userId);
                         myRef.child("friends").setValue(friends).addOnCompleteListener(task -> {
                             if (task.isSuccessful()) {
                                 Toast.makeText(getContext(), "Friend added!", Toast.LENGTH_SHORT).show();
+                                loadSuggestedFriends();
                             } else {
                                 Toast.makeText(getContext(), "Failed to add friend", Toast.LENGTH_SHORT).show();
+                                btnAddFriend.setVisibility(View.VISIBLE);
                             }
                         });
-                        } else {
+                    } else {
                         Toast.makeText(getContext(), "Already a friend", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -148,7 +154,7 @@ public class OtherUserProfileFragment extends Fragment {
                 Toast.makeText(getContext(), "Failed to add friend", Toast.LENGTH_SHORT).show();
             }
         });
-                            }
+    }
 
 
     private void displayFavoriteGames(List<String> games) {
@@ -172,124 +178,153 @@ public class OtherUserProfileFragment extends Fragment {
         }
     }
 
-    private void displaySuggestedFriend(List<String> suggested_friends) {
-        if (ChipSuggestFriend == null || getContext() == null) return;
-        ChipSuggestFriend.removeAllViews();
+    private void loadSuggestedFriends() {
+        if (ChipSuggestFriend != null) ChipSuggestFriend.removeAllViews();
 
-        if (suggested_friends != null && !suggested_friends.isEmpty()) {
-            for (String friend : suggested_friends) {
-                DatabaseReference FriendRef = FirebaseDatabase.getInstance().getReference("Users").child(friend);
+        String myId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Users").child(myId);
+
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot mySnapshot) {
+                User me = mySnapshot.getValue(User.class);
+                if (me == null) return;
+
+                if (me.getFriends() == null || !me.getFriends().contains(userId)) {
+                    displayPrivacyMessage();
+                    return;
+                }
+
+                DatabaseReference FriendRef = FirebaseDatabase.getInstance().getReference("Users").child(userId);
                 FriendRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         User friend = snapshot.getValue(User.class);
-                        if (friend != null) {
-                            boolean are_friends = friend.getFriends().contains(userId);
-                            if (are_friends) {
-                                Chip chip = new Chip(getContext());
-                                chip.setText(friend.getFullname());
-                                chip.setChipBackgroundColor(ColorStateList.valueOf(Color.parseColor("#E3F2FD")));
-                                chip.setTextColor(Color.BLACK);
-                                chip.setClickable(true);
-                                chip.setCheckable(false);
-                                chip.setTag(friend.getUserid());
-                                chip.setOnClickListener(new View.OnClickListener() {
+                        if (friend != null && friend.getFriends() != null) {
+                            List<String> friends_ofa_friend = friend.getFriends();
+                            List<String> candidates = new ArrayList<>();
+
+                            for (String friendId : friends_ofa_friend) {
+                                if (friendId.equals(me.getUserid())) continue;
+                                if (me.getFriends() != null && me.getFriends().contains(friendId)) continue;
+                                if (candidates.contains(friendId)) continue;
+                                candidates.add(friendId);
+                            }
+
+                            if (candidates.isEmpty()) {
+                                displayNoFriendsMessage();
+                                return;
+                            }
+
+                            final int totalTasks = candidates.size();
+                            final int[] completedTasks = {0};
+                            final boolean[] foundMatch = {false};
+
+                            for (String friendId : candidates) {
+                                DatabaseReference FriendOfFriendRef = FirebaseDatabase.getInstance().getReference("Users").child(friendId);
+                                FriendOfFriendRef.addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
-                                    public void onClick(View v) {
-                                        String ID = (String) v.getTag();
-                                        moveToOtherID(friend);
-                                        Toast.makeText(getContext(), friend.getFullname() + " was clicked", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                                ChipSuggestFriend.addView(chip);
-                            }
-                            else
-                            {
-                                Chip chip = new Chip(getContext());
-                                chip.setText("Must add as a friend to view suggested friends");
-                                chip.setChipBackgroundColor(ColorStateList.valueOf(Color.parseColor("#E3F2FD")));
-                                chip.setTextColor(Color.BLACK);
-                                chip.setClickable(false);
-                                chip.setCheckable(false);
-                                chip.setTag(friend.getUserid());
-                                ChipSuggestFriend.addView(chip);
-                            }
-                        }
-                    }
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                    }
-                });
-            }
-        } else {
-            Chip noFriendsChip = new Chip(getContext());
-            noFriendsChip.setText("No friends to suggest");
-            ChipSuggestFriend.addView(noFriendsChip);
-        }
-    }
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        completedTasks[0]++;
+                                        User friendOfFriend = snapshot.getValue(User.class);
 
-    private void loadSuggestedFriends() {
-        String myId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        DatabaseReference FriendRef = FirebaseDatabase.getInstance().getReference("Users").child(userId);
-        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Users").child(myId);
+                                        if (friendOfFriend != null) {
+                                            List<String> fofGames = friendOfFriend.getFavoriteGames();
+                                            List<String> myGames = me.getFavoriteGames();
 
-        FriendRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                User friend = snapshot.getValue(User.class);
-                if (friend != null) {
-                    List<String> friends_ofa_friend = friend.getFriends();
-                    List<String> suggested_friends = new ArrayList<>();
-
-                    for (String friendId : friends_ofa_friend) {
-                        DatabaseReference FriendOfFriendRef = FirebaseDatabase.getInstance().getReference("Users").child(friendId);
-                        FriendOfFriendRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                User friendOfFriend = snapshot.getValue(User.class);
-                                if (friendOfFriend != null) {
-                                    List<String> friends_of_friend_games = friendOfFriend.getFavoriteGames();
-
-                                    myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                            User me = snapshot.getValue(User.class);
-                                            if (me != null) {
-                                                List<String> myGames = me.getFavoriteGames();
-                                                List<String> myFriends = me.getFriends();
-
-                                                if (!myFriends.contains(friendId) && !friendId.equals(me.getUserid())) {
-                                                    for (String game : myGames) {
-                                                        if (friends_of_friend_games.contains(game)) {
-                                                            suggested_friends.add(friendId);
-                                                            break;
-                                                        }
+                                            if (fofGames != null && myGames != null) {
+                                                for (String game : myGames) {
+                                                    if (fofGames.contains(game)) {
+                                                        addSingleSuggestedFriendChip(friendId);
+                                                        foundMatch[0] = true;
+                                                        break;
                                                     }
                                                 }
                                             }
-                                            displaySuggestedFriend(suggested_friends);
                                         }
 
-                                        @Override
-                                        public void onCancelled(@NonNull DatabaseError error) {
+                                        if (completedTasks[0] == totalTasks && !foundMatch[0]) {
+                                            displayNoFriendsMessage();
                                         }
-                                    });
+                                    }
 
-                                }
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+                                        completedTasks[0]++;
+                                        if (completedTasks[0] == totalTasks && !foundMatch[0]) {
+                                            displayNoFriendsMessage();
+                                        }
+                                    }
+                                });
                             }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-                            }
-                        });
+                        } else {
+                            displayNoFriendsMessage();
+                        }
                     }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {}
+                });
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
+        });
+    }
+
+    private void addSingleSuggestedFriendChip(String friendId) {
+        if (ChipSuggestFriend == null || getContext() == null) return;
+        if (ChipSuggestFriend.findViewWithTag(friendId) != null) return;
+
+        DatabaseReference FriendRef = FirebaseDatabase.getInstance().getReference("Users").child(friendId);
+        FriendRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot friendSnapshot) {
+                User friendUser = friendSnapshot.getValue(User.class);
+                if (friendUser != null) {
+                    if (ChipSuggestFriend.findViewWithTag(friendUser.getUserid()) != null) return;
+
+                    Chip chip = new Chip(getContext());
+                    chip.setText(friendUser.getFullname());
+                    chip.setChipBackgroundColor(ColorStateList.valueOf(Color.parseColor("#E3F2FD")));
+                    chip.setTextColor(Color.BLACK);
+                    chip.setClickable(true);
+                    chip.setCheckable(false);
+                    chip.setTag(friendUser.getUserid());
+
+                    chip.setOnClickListener(v -> {
+                        moveToOtherID(friendUser);
+                        Toast.makeText(getContext(), friendUser.getFullname() + " was clicked", Toast.LENGTH_SHORT).show();
+                    });
+                    ChipSuggestFriend.addView(chip);
                 }
             }
-
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
+            public void onCancelled(@NonNull DatabaseError error) {}
         });
+    }
+
+    private void displayPrivacyMessage() {
+        if (ChipSuggestFriend == null || getContext() == null) return;
+        ChipSuggestFriend.removeAllViews();
+        Chip chip = new Chip(getContext());
+        chip.setText("Must add as a friend to view suggested friends");
+        chip.setChipBackgroundColor(ColorStateList.valueOf(Color.parseColor("#E3F2FD")));
+        chip.setTextColor(Color.BLACK);
+        chip.setClickable(false);
+        chip.setCheckable(false);
+        ChipSuggestFriend.addView(chip);
+    }
+
+    private void displayNoFriendsMessage() {
+        if (ChipSuggestFriend == null || getContext() == null) return;
+        if (ChipSuggestFriend.getChildCount() > 0) return;
+
+        Chip noFriendsChip = new Chip(getContext());
+        noFriendsChip.setText("No other friends to suggest");
+        noFriendsChip.setChipBackgroundColor(ColorStateList.valueOf(Color.parseColor("#E3F2FD")));
+        noFriendsChip.setTextColor(Color.BLACK);
+        noFriendsChip.setClickable(false);
+        noFriendsChip.setCheckable(false);
+        ChipSuggestFriend.addView(noFriendsChip);
     }
 
     private void openChat() {
