@@ -35,6 +35,7 @@ public class OtherUserProfileFragment extends Fragment {
 
     private ChipGroup ChipSuggestFriend;
 
+    private List<String> OtherprofileFriends;
 
     public OtherUserProfileFragment() {
     }
@@ -50,15 +51,17 @@ public class OtherUserProfileFragment extends Fragment {
         btnBack = view.findViewById(R.id.btnBackToMatches);
         btnAddFriend = view.findViewById(R.id.btnFriend);
 
+
         ChipSuggestFriend = view.findViewById(R.id.ChipSuggestFriend);
         OtherchipGroupGames = view.findViewById(R.id.OtherchipGroupGames);
+
 
         if (getArguments() != null) {
             userId = getArguments().getString("userId");
             userName = getArguments().getString("userName");
             String userPhone = getArguments().getString("userPhone");
             ArrayList<String> favoriteGames = getArguments().getStringArrayList("favoriteGames");
-
+            OtherprofileFriends = getArguments().getStringArrayList("friends");
 
             if (userName != null) {
                 tvName.setText(userName);
@@ -69,6 +72,23 @@ public class OtherUserProfileFragment extends Fragment {
             displayFavoriteGames(favoriteGames);
             loadSuggestedFriends();
 
+            String myId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Users").child(myId);
+            myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    User me = snapshot.getValue(User.class);
+                    if (me != null) {
+                        if (me.getFriends().contains(userId)) {
+                            btnAddFriend.setVisibility(View.GONE);
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                }
+            });
         }
 
 
@@ -94,6 +114,7 @@ public class OtherUserProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 addFriend();
+                btnAddFriend.setVisibility(View.GONE);
             }
         });
         return view;
