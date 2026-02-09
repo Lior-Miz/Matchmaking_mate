@@ -71,6 +71,7 @@ public class OtherUserProfileFragment extends Fragment {
 
         }
 
+
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -156,13 +157,48 @@ public class OtherUserProfileFragment extends Fragment {
 
         if (suggested_friends != null && !suggested_friends.isEmpty()) {
             for (String friend : suggested_friends) {
-                Chip chip = new Chip(getContext());
-                chip.setText(friend);
-                chip.setChipBackgroundColor(ColorStateList.valueOf(Color.parseColor("#E3F2FD")));
-                chip.setTextColor(Color.BLACK);
-                chip.setClickable(false);
-                chip.setCheckable(false);
-                ChipSuggestFriend.addView(chip);
+                DatabaseReference FriendRef = FirebaseDatabase.getInstance().getReference("Users").child(friend);
+                FriendRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        User friend = snapshot.getValue(User.class);
+                        if (friend != null) {
+                            boolean are_friends = friend.getFriends().contains(userId);
+                            if (are_friends) {
+                                Chip chip = new Chip(getContext());
+                                chip.setText(friend.getFullname());
+                                chip.setChipBackgroundColor(ColorStateList.valueOf(Color.parseColor("#E3F2FD")));
+                                chip.setTextColor(Color.BLACK);
+                                chip.setClickable(true);
+                                chip.setCheckable(false);
+                                chip.setTag(friend.getUserid());
+                                chip.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        String ID = (String) v.getTag();
+                                        moveToOtherID(friend);
+                                        Toast.makeText(getContext(), friend.getFullname() + " was clicked", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                                ChipSuggestFriend.addView(chip);
+                            }
+                            else
+                            {
+                                Chip chip = new Chip(getContext());
+                                chip.setText("Must add as a friend to view suggested friends");
+                                chip.setChipBackgroundColor(ColorStateList.valueOf(Color.parseColor("#E3F2FD")));
+                                chip.setTextColor(Color.BLACK);
+                                chip.setClickable(false);
+                                chip.setCheckable(false);
+                                chip.setTag(friend.getUserid());
+                                ChipSuggestFriend.addView(chip);
+                            }
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
             }
         } else {
             Chip noFriendsChip = new Chip(getContext());
@@ -204,7 +240,7 @@ public class OtherUserProfileFragment extends Fragment {
                                                 if (!myFriends.contains(friendId) && !friendId.equals(me.getUserid())) {
                                                     for (String game : myGames) {
                                                         if (friends_of_friend_games.contains(game)) {
-                                                            suggested_friends.add(friendOfFriend.getFullname());
+                                                            suggested_friends.add(friendId);
                                                             break;
                                                         }
                                                     }
@@ -246,6 +282,21 @@ public class OtherUserProfileFragment extends Fragment {
                 .replace(R.id.fragment_container, chatFragment)
                 .addToBackStack(null)
                 .commit();
+    }
+
+    private void moveToOtherID(User user) {
+        OtherUserProfileFragment fragment = new OtherUserProfileFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("userId", user.getUserid());
+        bundle.putString("userName", user.getFullname());
+        bundle.putString("userPhone", user.getPhone());
+        if (user.getFavoriteGames() != null) {
+            bundle.putStringArrayList("favoriteGames", new ArrayList<>(user.getFavoriteGames()));
+        }
+        fragment.setArguments(bundle);
+
+        getParentFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, fragment).addToBackStack(null).commit();
     }
 }
 
