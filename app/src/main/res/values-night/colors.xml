@@ -1,6 +1,7 @@
 <resources>
-    <color name="primaryColor">#BB86FC</color>
+    <color name="primaryColor">#64F49E</color>
     <color name="backgroundColor">#121212</color>
     <color name="textColor">#FFFFFF</color>
     <color name="outline_color">#444444</color>
+    <color name="default_btn_color">#2196F3FF</color>
 </resources>

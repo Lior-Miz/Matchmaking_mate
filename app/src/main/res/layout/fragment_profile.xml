@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:text="User Name"
-        android:textColor="#333333"
+        android:textColor="@color/textColor"
         android:textSize="24sp"
         android:textStyle="bold" />
 
@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:text="email@example.com"
-        android:textColor="#666666"
+        android:textColor="@color/textColor"
         android:textSize="16sp" />
 
     <TextView
@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         android:text="050-0000000"
-        android:textColor="#666666"
+        android:textColor="@color/textColor"
         android:textSize="16sp" />
 
     <TextView

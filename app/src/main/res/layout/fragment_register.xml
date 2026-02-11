@@ -25,40 +25,48 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:background="@android:drawable/edit_text"
+            android:background="@color/outline_color"
             android:hint="Full Name"
             android:inputType="textPersonName"
-            android:padding="12dp" />
+            android:padding="12dp"
+            android:textColorHint="@color/textColor"
+            android:textColorLink="@color/textColor" />
 
         <EditText
             android:id="@+id/etRegisterEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:background="@android:drawable/edit_text"
+            android:background="@color/outline_color"
             android:hint="Email Address"
             android:inputType="textEmailAddress"
-            android:padding="12dp" />
+            android:padding="12dp"
+            android:textColorHint="@color/textColor"
+            android:textColorLink="@color/textColor" />
 
         <EditText
             android:id="@+id/etRegisterPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:background="@android:drawable/edit_text"
+            android:background="@color/outline_color"
             android:hint="Password"
             android:inputType="textPassword"
-            android:padding="12dp" />
+            android:padding="12dp"
+            android:textColorHint="@color/textColor"
+            android:textColorLink="@color/textColor" />
 
         <EditText
             android:id="@+id/etRegisterPhone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
-            android:background="@android:drawable/edit_text"
+            android:background="@color/outline_color"
             android:hint="Phone Number"
             android:inputType="phone"
-            android:padding="12dp" />
+            android:padding="12dp"
+            android:textColorHint="@color/textColor"
+            android:textColorLink="@color/textColor" />
 
         <TextView
             android:layout_width="match_parent"
