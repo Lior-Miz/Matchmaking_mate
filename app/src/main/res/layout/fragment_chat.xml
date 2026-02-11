@@ -44,28 +44,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_marginBottom="25dp"
         android:background="#FFFFFF"
-        android:padding="5dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:gravity="center_vertical">
+        android:padding="15dp">
 
         <EditText
             android:id="@+id/etMessageInput"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="Type a message..."
-            android:padding="10dp"
             android:background="@android:color/transparent"
-            android:maxLines="3"/>
+            android:hint="Type a message..."
+            android:maxLines="3"
+            android:padding="10dp" />
 
         <Button
             android:id="@+id/btnSendMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Send"
             android:backgroundTint="#2196F3"
-            android:textColor="#FFFFFF"/>
+            android:text="Send"
+            android:textColor="#FFFFFF" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
