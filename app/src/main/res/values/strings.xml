@@ -1,5 +1,14 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Matchmaking_mate</string>
     <!-- TODO: Remove or change this placeholder text -->
+    <string-array name="games_array">
+        <item>All Games</item>
+        <item>FIFA</item>
+        <item>Call of Duty</item>
+        <item>GTA V</item>
+        <item>Fortnite</item>
+        <item>Minecraft</item>
+        <item>NBA 2K</item>
+    </string-array>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

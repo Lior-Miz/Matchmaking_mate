@@ -16,6 +16,8 @@
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
+
+
         <Button
             android:id="@+id/btnBackToHome"
             android:layout_width="wrap_content"
@@ -43,6 +45,21 @@
 
     </LinearLayout>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Filter by Game:"
+        android:textColor="@color/textColor"
+        android:textSize="14sp" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="10dp"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown" />
+
     <EditText
         android:id="@+id/etsearchuseredit"
         android:layout_width="match_parent"
@@ -50,6 +67,8 @@
         android:layout_marginBottom="10dp"
         android:background="@android:drawable/edit_text"
         android:hint="Search name..."
+        android:textColor="@color/textColor"
+        android:textColorLink="@color/textColor"
         android:padding="10dp" />
 
     <LinearLayout

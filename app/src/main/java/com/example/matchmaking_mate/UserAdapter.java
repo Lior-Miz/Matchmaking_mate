@@ -15,6 +15,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     private List<User> users;
     private OnUserClickListener listener;
 
+    private List<User> filteredUsers;
+
     public interface OnUserClickListener {
         void onUserClick(User user);
     }
@@ -35,8 +37,10 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     @Override
     public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
         User user = users.get(position);
+        String ListGames = user.getFavoriteGames().toString();
         holder.tvName.setText(user.getFullname());
-        holder.tvPhone.setText(user.getPhone());
+        //for(String game : ListGames)
+        holder.tvGames.setText(ListGames);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,12 +57,13 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
 
     public static class UserViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvName, tvPhone;
+        TextView tvName, tvGames;
 
         public UserViewHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tvItemFullName);
-            tvPhone = itemView.findViewById(R.id.tvItemPhone);
+            tvGames = itemView.findViewById(R.id.tvItemListGames);
         }
     }
+
 }

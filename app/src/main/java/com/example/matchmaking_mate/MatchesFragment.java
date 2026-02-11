@@ -4,8 +4,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,9 +30,13 @@ public class MatchesFragment extends Fragment {
     private UserAdapter adapter;
     private EditText etSearch;
     private Button btnSearch, btnReset, btnBack;
+    private Spinner gameSpinner;
     private List<User> displayList;
     private List<User> fullList;
     private DatabaseReference dbRef;
+
+    private String currentSearchQuery = "";
+    private String currentGameFilter = "All Games";
 
     public MatchesFragment() {
     }
@@ -44,6 +51,7 @@ public class MatchesFragment extends Fragment {
         btnSearch = view.findViewById(R.id.btnsearch);
         btnReset = view.findViewById(R.id.btnreset);
         btnBack = view.findViewById(R.id.btnBackToHome);
+        gameSpinner = view.findViewById(R.id.spinner);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -60,13 +68,28 @@ public class MatchesFragment extends Fragment {
 
         loadUsers();
 
+        ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(getContext(),
+                R.array.games_array, android.R.layout.simple_spinner_item);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        gameSpinner.setAdapter(spinnerAdapter);
 
+        gameSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                currentGameFilter = parent.getItemAtPosition(position).toString();
+                applyFilters();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
 
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String query = etSearch.getText().toString();
-                filterUsers(query);
+                currentSearchQuery = etSearch.getText().toString();
+                applyFilters();
             }
         });
 
@@ -74,7 +97,10 @@ public class MatchesFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 etSearch.setText("");
-                filterUsers("");
+                currentSearchQuery = "";
+                gameSpinner.setSelection(0);
+                currentGameFilter = "All Games";
+                applyFilters();
             }
         });
 
@@ -101,17 +127,16 @@ public class MatchesFragment extends Fragment {
         dbRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                displayList.clear();
                 fullList.clear();
                 for (DataSnapshot data : snapshot.getChildren()) {
                     User user = data.getValue(User.class);
 
                     if (user != null && data.getKey() != null && !data.getKey().equals(myId)) {
                         user.setUserid(data.getKey());
-                        displayList.add(user);
                         fullList.add(user);
                     }
                 }
+                applyFilters();
                 adapter.notifyDataSetChanged();
             }
 
@@ -122,20 +147,33 @@ public class MatchesFragment extends Fragment {
         });
     }
 
-    private void filterUsers(String text) {
+    private void applyFilters() {
         displayList.clear();
-        if (text.isEmpty()) {
-            displayList.addAll(fullList);
+        List<User> filteredByName = new ArrayList<>();
+
+        if (currentSearchQuery.isEmpty()) {
+            filteredByName.addAll(fullList);
         } else {
-            text = text.toLowerCase();
+            String lowerCaseQuery = currentSearchQuery.toLowerCase();
             for (User user : fullList) {
-                if (user.getFullname() != null && user.getFullname().toLowerCase().contains(text)) {
+                if (user.getFullname() != null && user.getFullname().toLowerCase().contains(lowerCaseQuery)) {
+                    filteredByName.add(user);
+                }
+            }
+        }
+
+        if (currentGameFilter.equals("All Games")) {
+            displayList.addAll(filteredByName);
+        } else {
+            for (User user : filteredByName) {
+                if (user.getFavoriteGames() != null && user.getFavoriteGames().contains(currentGameFilter)) {
                     displayList.add(user);
                 }
             }
         }
         adapter.notifyDataSetChanged();
     }
+
 
     private void moveToUserProfile(User user) {
         OtherUserProfileFragment fragment = new OtherUserProfileFragment();
@@ -156,4 +194,6 @@ public class MatchesFragment extends Fragment {
                 .addToBackStack(null)
                 .commit();
     }
+
+
 }

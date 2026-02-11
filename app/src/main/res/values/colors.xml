@@ -8,7 +8,7 @@
 -->
 
 <resources>
-    <color name="primaryColor">#64F49E</color>
+    <color name="primaryColor">#4ADB85</color>
     <color name="backgroundColor">#FFFFFF</color>
     <color name="textColor">#000000</color>
     <color name="outline_color">#DDDDDD</color>
