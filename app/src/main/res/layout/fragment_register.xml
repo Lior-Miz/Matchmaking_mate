@@ -2,104 +2,122 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF">
+    android:background="@color/backgroundColor">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:padding="24dp"
-        android:gravity="center_horizontal">
+        android:padding="24dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
             android:text="Create Account"
+            android:textColor="@color/textColor"
             android:textSize="28sp"
-            android:textStyle="bold"
-            android:textColor="#333333"
-            android:layout_marginBottom="30dp"/>
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/etRegisterName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:background="@android:drawable/edit_text"
             android:hint="Full Name"
             android:inputType="textPersonName"
-            android:padding="12dp"
-            android:background="@android:drawable/edit_text"
-            android:layout_marginBottom="16dp"/>
+            android:padding="12dp" />
 
         <EditText
             android:id="@+id/etRegisterEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:background="@android:drawable/edit_text"
             android:hint="Email Address"
             android:inputType="textEmailAddress"
-            android:padding="12dp"
-            android:background="@android:drawable/edit_text"
-            android:layout_marginBottom="16dp"/>
+            android:padding="12dp" />
 
         <EditText
             android:id="@+id/etRegisterPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:background="@android:drawable/edit_text"
             android:hint="Password"
             android:inputType="textPassword"
-            android:padding="12dp"
-            android:background="@android:drawable/edit_text"
-            android:layout_marginBottom="16dp"/>
+            android:padding="12dp" />
 
         <EditText
             android:id="@+id/etRegisterPhone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:background="@android:drawable/edit_text"
             android:hint="Phone Number"
             android:inputType="phone"
-            android:padding="12dp"
-            android:background="@android:drawable/edit_text"
-            android:layout_marginBottom="24dp"/>
+            android:padding="12dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:text="Select Favorite Games:"
             android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="8dp"/>
+            android:textStyle="bold" />
 
         <GridLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:columnCount="2"
-            android:layout_marginBottom="24dp">
+            android:layout_marginBottom="24dp"
+            android:columnCount="2">
 
-            <CheckBox android:id="@+id/cbFifa" android:text="FIFA" />
-            <CheckBox android:id="@+id/cbFortnite" android:text="Fortnite" />
-            <CheckBox android:id="@+id/cbCod" android:text="Call of Duty" />
-            <CheckBox android:id="@+id/cbMinecraft" android:text="Minecraft" />
-            <CheckBox android:id="@+id/cbGta" android:text="GTA V" />
-            <CheckBox android:id="@+id/cbNba" android:text="NBA 2K" />
+            <CheckBox
+                android:id="@+id/cbFifa"
+                android:text="FIFA" />
+
+            <CheckBox
+                android:id="@+id/cbFortnite"
+                android:text="Fortnite" />
+
+            <CheckBox
+                android:id="@+id/cbCod"
+                android:text="Call of Duty" />
+
+            <CheckBox
+                android:id="@+id/cbMinecraft"
+                android:text="Minecraft" />
+
+            <CheckBox
+                android:id="@+id/cbGta"
+                android:text="GTA V" />
+
+            <CheckBox
+                android:id="@+id/cbNba"
+                android:text="NBA 2K" />
         </GridLayout>
 
         <Button
             android:id="@+id/btnRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Register"
-            android:textSize="16sp"
             android:backgroundTint="#4CAF50"
-            android:padding="12dp"/>
+            android:padding="12dp"
+            android:text="Register"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/tvAlreadyHaveAccount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Already have an account? Login"
-            android:textSize="16sp"
-            android:textStyle="bold"
+            android:layout_gravity="center"
             android:layout_marginTop="16dp"
-            android:layout_gravity="center" />
+            android:text="Already have an account? Login"
+            android:textColor="#0000EE"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 </ScrollView>

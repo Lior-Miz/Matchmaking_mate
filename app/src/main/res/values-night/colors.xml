@@ -1,0 +1,6 @@
+<resources>
+    <color name="primaryColor">#BB86FC</color>
+    <color name="backgroundColor">#121212</color>
+    <color name="textColor">#FFFFFF</color>
+    <color name="outline_color">#444444</color>
+</resources>

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E0F7FA"
+    android:background="@color/backgroundColor"
     android:gravity="center"
     android:orientation="vertical"
     android:padding="20dp">
@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:text="Welcome Home!"
-        android:textColor="#006064"
+        android:textColor="@color/textColor"
         android:textSize="30sp"
         android:textStyle="bold" />
 
@@ -23,7 +23,7 @@
         android:layout_marginBottom="30dp"
         android:gravity="center"
         android:text="Loading email..."
-        android:textColor="#004D40"
+        android:textColor="@color/textColor"
         android:textSize="18sp" />
 
     <Button

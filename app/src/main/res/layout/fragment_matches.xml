@@ -2,29 +2,29 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/backgroundColor"
     android:orientation="vertical"
-    android:background="#FFFFFF"
 
-    android:paddingTop="30dp"
     android:paddingStart="16dp"
+    android:paddingTop="30dp"
     android:paddingEnd="16dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_marginBottom="20dp"
         android:gravity="center_vertical"
-        android:layout_marginBottom="20dp">
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/btnBackToHome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Back"
-            android:textSize="18sp"
-            android:padding="15dp"
             android:clickable="true"
-            android:focusable="true"/>
+            android:focusable="true"
+            android:padding="15dp"
+            android:text="Back"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/textView"
@@ -33,9 +33,9 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="Matches"
+            android:textColor="@color/textColor"
             android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="#000000"/>
+            android:textStyle="bold" />
 
         <View
             android:layout_width="60dp"
@@ -47,38 +47,38 @@
         android:id="@+id/etsearchuseredit"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:hint="Search name..."
-        android:padding="10dp"
+        android:layout_marginBottom="10dp"
         android:background="@android:drawable/edit_text"
-        android:layout_marginBottom="10dp"/>
+        android:hint="Search name..."
+        android:padding="10dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="10dp">
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/btnreset"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
             android:layout_weight="1"
-            android:text="Reset"
-            android:layout_marginEnd="5dp"/>
+            android:text="Reset" />
 
         <Button
             android:id="@+id/btnsearch"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
             android:layout_weight="1"
-            android:text="Search"
-            android:layout_marginStart="5dp"/>
+            android:text="Search" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewMatches"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1" />
 
 </LinearLayout>
