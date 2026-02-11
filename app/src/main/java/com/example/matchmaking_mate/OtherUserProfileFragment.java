@@ -216,8 +216,8 @@ public class OtherUserProfileFragment extends Fragment {
                                 return;
                             }
 
-                            final int totalTasks = candidates.size();
-                            final int[] completedTasks = {0};
+                            final int totalFofCount = candidates.size();
+                            final int[] currentFofCount = {0};
                             final boolean[] foundMatch = {false};
 
                             for (String friendId : candidates) {
@@ -225,7 +225,7 @@ public class OtherUserProfileFragment extends Fragment {
                                 FriendOfFriendRef.addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                        completedTasks[0]++;
+                                        currentFofCount[0]++;
                                         User friendOfFriend = snapshot.getValue(User.class);
 
                                         if (friendOfFriend != null) {
@@ -243,15 +243,15 @@ public class OtherUserProfileFragment extends Fragment {
                                             }
                                         }
 
-                                        if (completedTasks[0] == totalTasks && !foundMatch[0]) {
+                                        if (currentFofCount[0] == totalFofCount && !foundMatch[0]) {
                                             displayNoFriendsMessage();
                                         }
                                     }
 
                                     @Override
                                     public void onCancelled(@NonNull DatabaseError error) {
-                                        completedTasks[0]++;
-                                        if (completedTasks[0] == totalTasks && !foundMatch[0]) {
+                                        currentFofCount[0]++;
+                                        if (currentFofCount[0] == totalFofCount && !foundMatch[0]) {
                                             displayNoFriendsMessage();
                                         }
                                     }
