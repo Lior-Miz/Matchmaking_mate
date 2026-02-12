@@ -68,9 +68,10 @@
         android:layout_marginBottom="10dp"
         android:background="@android:drawable/edit_text"
         android:hint="Search name..."
+        android:padding="10dp"
         android:textColor="@color/textColor"
-        android:textColorLink="@color/textColor"
-        android:padding="10dp" />
+        android:textColorHint="@color/static_text_color"
+        android:textColorLink="@color/textColor" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -92,6 +93,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_weight="1"
+            android:backgroundTint="@color/button_color_1"
             android:text="Search" />
     </LinearLayout>
 

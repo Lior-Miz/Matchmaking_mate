@@ -20,10 +20,13 @@
             android:id="@+id/btnBackToHomeFromInbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/outline_color"
             android:clickable="true"
             android:focusable="true"
-            android:padding="15dp"
+            android:padding="10dp"
             android:text="Back"
+            android:textColor="@color/textColor"
+            android:textColorHint="@color/textColor"
             android:textSize="18sp" />
 
         <TextView
@@ -50,9 +53,10 @@
         android:layout_marginBottom="10dp"
         android:background="@android:drawable/edit_text"
         android:hint="Search name..."
-        android:textColor="@color/textColor"
-        android:textColorLink="@color/textColor"
-        android:padding="10dp" />
+        android:padding="10dp"
+        android:textColor="@color/static_text_color"
+        android:textColorHint="@color/static_text_color"
+        android:textColorLink="@color/static_text_color" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -66,7 +70,8 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
             android:layout_weight="1"
-            android:text="Reset" />
+            android:text="Reset"
+            android:textColor="@color/static_text_color" />
 
         <Button
             android:id="@+id/btnSearchInbox"
@@ -74,7 +79,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_weight="1"
-            android:text="Search" />
+            android:backgroundTint="@color/button_color_1"
+            android:text="Search"
+            android:textColor="@color/static_text_color" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
