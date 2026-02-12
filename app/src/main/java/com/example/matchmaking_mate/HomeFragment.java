@@ -16,7 +16,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class HomeFragment extends Fragment {
 
     private TextView tvEmail;
-    private Button btnLogout, btnProfile, btnMatches;
+    private Button btnLogout, btnProfile, btnMatches,btnInbox;
     private FirebaseAuth auth;
 
     public HomeFragment() {
@@ -32,6 +32,8 @@ public class HomeFragment extends Fragment {
         btnLogout = view.findViewById(R.id.btnLogout);
         btnProfile = view.findViewById(R.id.btnMoveToProfile);
         btnMatches = view.findViewById(R.id.btnFindMatches);
+        btnInbox = view.findViewById(R.id.btn_inbox);
+
 
         FirebaseUser user = auth.getCurrentUser();
         if (user != null) {
@@ -57,6 +59,16 @@ public class HomeFragment extends Fragment {
                         .commit();
             }
         });
+        btnInbox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getParentFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, new Inbox())
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override

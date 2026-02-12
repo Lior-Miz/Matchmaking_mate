@@ -37,7 +37,6 @@ public class Inbox extends Fragment {
     private Button btnSearch, btnReset, btnBack;
     private List<User> displayList;
     private List<User> fullList;
-    private List<Message> myMessages;
     private DatabaseReference dbRef;
 
     private String currentSearchQuery = "";
@@ -50,7 +49,7 @@ public class Inbox extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_matches, container, false);
+        View view = inflater.inflate(R.layout.fragment_inbox, container, false);
 
         recyclerView = view.findViewById(R.id.recyclerViewInbox);
         etSearch = view.findViewById(R.id.etSearchUserEditInbox);
@@ -118,20 +117,25 @@ public class Inbox extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 fullList.clear();
-                myMessages.clear();
                 for (DataSnapshot data : snapshot.getChildren()) {
                     Message msg = data.getValue(Message.class);
+                    android.util.Log.d("Inbox", "Message: " + msg);
                     String chatWith;
-                    if(msg != null && msg.getReceiverID().contains(myId))
-                        chatWith = msg.getSenderID();
-                    else
-                        chatWith = msg.getReceiverID();
 
-                    convertToUser(chatWith);
+                    if (msg != null && msg.getReceiverID() != null && msg.getSenderID() != null) {
+                        if (msg.getSenderID().equals(myId))
+                            chatWith = msg.getSenderID();
+                        else if(msg.getReceiverID().equals(myId))
+                            chatWith = msg.getReceiverID();
+                        else
+                            continue;
 
+                        convertToUser(chatWith);
+
+                    }
+                    applyFilters();
+                    adapter.notifyDataSetChanged();
                 }
-                applyFilters();
-                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -149,7 +153,10 @@ public class Inbox extends Fragment {
                 User user = snapshot.getValue(User.class);
                 if (user != null) {
                     fullList.add(user);
+                    applyFilters();
+                    adapter.notifyDataSetChanged();
                 }
+
             }
 
             @Override
