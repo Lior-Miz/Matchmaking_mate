@@ -17,15 +17,16 @@
         android:orientation="horizontal">
 
 
-
         <Button
             android:id="@+id/btnBackToHome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/outline_color"
             android:clickable="true"
             android:focusable="true"
-            android:padding="15dp"
+            android:padding="10dp"
             android:text="Back"
+            android:textColor="@color/textColor"
             android:textSize="18sp" />
 
         <TextView

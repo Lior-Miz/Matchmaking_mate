@@ -20,13 +20,12 @@
             android:id="@+id/btnBackFromChat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:minWidth="48dp"
-            android:minHeight="48dp"
+            android:backgroundTint="@color/outline_color"
             android:padding="10dp"
             android:text="Back"
-            android:textColor="#2196F3"
+            android:textColor="@color/textColor"
             android:textSize="16sp" />
+
 
         <TextView
             android:id="@+id/tvChatUserName"

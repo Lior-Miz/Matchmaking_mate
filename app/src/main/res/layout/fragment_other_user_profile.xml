@@ -13,13 +13,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/outline_color"
-        android:minWidth="48dp"
-        android:minHeight="48dp"
         android:padding="10dp"
         android:text="Back"
         android:textColor="@color/textColor"
         android:textColorLink="@color/textColor"
-        android:textSize="16sp"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
