@@ -31,13 +31,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:text="User Profile"
-            android:textColor="#555555"
-            android:textSize="22sp" />
 
         <ImageView
             android:layout_width="120dp"
@@ -63,16 +56,16 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="40dp"
             android:text="Loading Phone..."
-            android:textColor="#666666"
+            android:textColor="@color/textColor"
             android:textSize="18sp" />
 
         <TextView
             android:id="@+id/tvOtherUserFavoriteGames"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:text="Favorite games"
-            android:textColor="#666666"
+            android:textColor="@color/textColor"
             android:textSize="18sp" />
 
         <com.google.android.material.chip.ChipGroup
@@ -88,6 +81,8 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:text="Add Friend"
+            android:textColor="@color/static_text_color"
+            android:textColorLink="#000000"
             android:textSize="18sp" />
 
         <Button
@@ -97,15 +92,17 @@
             android:layout_marginBottom="10dp"
             android:backgroundTint="#2196F3"
             android:text="Send Message"
+            android:textColor="@color/static_text_color"
+            android:textColorLink="#000000"
             android:textSize="18sp" />
 
         <TextView
             android:id="@+id/tvSuggestFriend"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:text="Suggested friends"
-            android:textColor="#666666"
+            android:textColor="@color/textColor"
             android:textSize="18sp" />
 
         <com.google.android.material.chip.ChipGroup

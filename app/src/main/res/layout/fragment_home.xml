@@ -7,49 +7,71 @@
     android:orientation="vertical"
     android:padding="20dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:text="Welcome Home!"
-        android:textColor="@color/textColor"
-        android:textSize="30sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/Email"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        android:gravity="center"
-        android:text="Loading email..."
-        android:textColor="@color/textColor"
-        android:textSize="18sp" />
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
 
-    <Button
-        android:id="@+id/btnFindMatches"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Find Matches"
-        android:textSize="20sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Welcome Home!"
+            android:textColor="@color/textColor"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:gravity="center" />
 
-    <Button
-        android:id="@+id/btnMoveToProfile"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:backgroundTint="#0097A7"
-        android:padding="12dp"
-        android:text="Go to My Profile"
-        android:textSize="18sp" />
+        <TextView
+            android:id="@+id/Email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:gravity="center"
+            android:text="Loading email..."
+            android:textColor="@color/textColor"
+            android:textSize="18sp" />
 
-    <Button
-        android:id="@+id/btnLogout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#FF5252"
-        android:text="Logout"
-        android:textSize="16sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnMoveToProfile"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                android:backgroundTint="@color/button_color_1"
+                android:padding="12dp"
+                android:text="Go to My Profile"
+                android:textColor="@color/static_text_color"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/btnFindMatches"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:padding="12dp"
+                android:text="Find Matches"
+                android:textColor="@color/static_text_color"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnLogout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="#FF5252"
+            android:text="Logout"
+            android:textColor="@color/static_text_color"
+            android:textSize="16sp" />
+
+    </LinearLayout>
 
 </LinearLayout>
