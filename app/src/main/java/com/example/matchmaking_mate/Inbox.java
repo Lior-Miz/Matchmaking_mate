@@ -111,30 +111,22 @@ public class Inbox extends Fragment {
         }
 
         String myId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        dbRef = FirebaseDatabase.getInstance().getReference("Chats");
+
+        dbRef = FirebaseDatabase.getInstance().getReference("Chats").child(myId);
 
         dbRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 fullList.clear();
+
                 for (DataSnapshot data : snapshot.getChildren()) {
-                    Message msg = data.getValue(Message.class);
-                    android.util.Log.d("Inbox", "Message: " + msg);
-                    String chatWith;
-
-                    if (msg != null && msg.getReceiverID() != null && msg.getSenderID() != null) {
-                        if (msg.getSenderID().equals(myId))
-                            chatWith = msg.getSenderID();
-                        else if(msg.getReceiverID().equals(myId))
-                            chatWith = msg.getReceiverID();
-                        else
-                            continue;
-
-                        convertToUser(chatWith);
-
+                    String chatPartnerId = data.getKey();
+                    if (chatPartnerId != null) {
+                        convertToUser(chatPartnerId);
                     }
-                    applyFilters();
-                    adapter.notifyDataSetChanged();
+                    for (DataSnapshot messageSnapshot : data.getChildren()) {
+                        Message message = messageSnapshot.getValue(Message.class);
+                    }
                 }
             }
 
@@ -152,20 +144,25 @@ public class Inbox extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
                 if (user != null) {
-                    fullList.add(user);
-                    applyFilters();
-                    adapter.notifyDataSetChanged();
-                }
+                    boolean exists = false;
+                    for (User u : fullList) {
+                        if (u.getUserid().equals(user.getUserid())) {
+                            exists = true;
+                            break;
+                        }
+                    }
 
+                    if (!exists) {
+                        fullList.add(user);
+                        applyFilters();
+                    }
+                }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getContext(), "Failed to load users", Toast.LENGTH_SHORT).show();
-                }
-
-    });
-
+            }
+        });
     }
 
     private void applyFilters() {
@@ -182,6 +179,7 @@ public class Inbox extends Fragment {
                 }
             }
         }
+        displayList.addAll(filteredByName);
         adapter.notifyDataSetChanged();
     }
 
