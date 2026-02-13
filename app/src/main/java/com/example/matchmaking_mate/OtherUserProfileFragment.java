@@ -43,7 +43,7 @@ public class OtherUserProfileFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_other_user_profile, container, false);
-        view.setBackgroundColor(Color.WHITE);
+
 
         tvName = view.findViewById(R.id.tvOtherUserName);
         tvPhone = view.findViewById(R.id.tvOtherUserPhone);

@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     android:clickable="true"
     android:focusable="true"
-    android:padding="24dp">
+    android:padding="24dp"
+    android:background="@color/backgroundColor">
 
     <Button
         android:id="@+id/btnBackToMatches"
