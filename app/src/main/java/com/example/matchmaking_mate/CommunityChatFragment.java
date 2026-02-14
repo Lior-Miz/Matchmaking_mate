@@ -113,12 +113,28 @@ public class CommunityChatFragment extends Fragment {
 
     private void sendCommunityMessage(String senderID, String groupID, String message) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+        dbRef = FirebaseDatabase.getInstance().getReference("Users").child(senderID);
+        dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    String senderName = snapshot.child("fullname").getValue(String.class);
+                    String message_with_sender = senderName + ": \n" + message;
+                    List<Message> messageList = new ArrayList<>();
+                    Message msg = new Message(senderID, groupID, message_with_sender, System.currentTimeMillis());
+                    messageList.add(msg);
 
-        Message msg = new Message(senderID, groupID, message, System.currentTimeMillis());
-        messageList.add(msg);
+                    // Save message ONLY ONCE in the shared group path
+                    reference.child("Groups").child(groupID).push().setValue(messageList);
+                }
+                chatAdapter.notifyDataSetChanged();
+            }
 
-        // Save message ONLY ONCE in the shared group path
-        reference.child("Groups").child(groupID).push().setValue(messageList);
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getContext(), "Failed to send message", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void readCommunityMessages(final String groupID) {
@@ -127,10 +143,12 @@ public class CommunityChatFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 messageList.clear();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Message message = snapshot.getValue(Message.class);
-                    if (message != null) {
-                        messageList.add(message);
+                for (DataSnapshot iDsnapshot : dataSnapshot.getChildren()) {
+                    for(DataSnapshot message_snapshot : iDsnapshot.getChildren()) {
+                        Message message = message_snapshot.getValue(Message.class);
+                        if (message != null && !messageList.contains(message)) {
+                            messageList.add(message);
+                        }
                     }
                 }
                 chatAdapter.notifyDataSetChanged();

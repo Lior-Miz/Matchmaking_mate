@@ -122,6 +122,7 @@ public class Inbox extends Fragment {
                     User community = new User("Community: " +gameName,"","","COM:"+gameName);
                     fullList.add(community);
                 }
+                applyFilters();
 
             }
 
@@ -204,15 +205,13 @@ public class Inbox extends Fragment {
 
     private void openChat(User user) {
         if(user.getUserid().startsWith("COM:")) {
-            CommunityChatFragment CommunitychatFragment = new CommunityChatFragment();
+            CommunityChatFragment communitychatFragment = new CommunityChatFragment();
             Bundle args=new Bundle();
             args.putString("targetId", user.getUserid());
             args.putString("targetName", user.getFullname());
-            CommunityChatFragment communityChatFragment=new CommunityChatFragment();
-            communityChatFragment.setArguments(args);
-
+            communitychatFragment.setArguments(args);
             getParentFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, CommunitychatFragment)
+                    .replace(R.id.fragment_container, communitychatFragment)
                     .addToBackStack(null)
                     .commit();
         }
