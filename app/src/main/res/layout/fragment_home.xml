@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroundColor"
@@ -7,20 +8,29 @@
     android:orientation="vertical"
     android:padding="20dp">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
+        app:srcCompat="@mipmap/ic_launcher" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="Welcome Home!"
             android:textColor="@color/textColor"
             android:textSize="30sp"
-            android:textStyle="bold"
-            android:gravity="center" />
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/Email"
@@ -41,24 +51,29 @@
                 android:id="@+id/btnMoveToProfile"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginEnd="8dp"
+                android:layout_weight="1"
                 android:backgroundTint="@color/button_color_1"
                 android:padding="12dp"
-                android:text="Go to My Profile"
+                android:text="My Profile"
                 android:textColor="@color/static_text_color"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                app:icon="@android:drawable/ic_dialog_info"
+                app:iconGravity="textStart" />
 
             <Button
                 android:id="@+id/btnFindMatches"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginStart="8dp"
+                android:layout_weight="1"
                 android:padding="12dp"
                 android:text="Find Matches"
                 android:textColor="@color/static_text_color"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                app:icon="@android:drawable/ic_menu_myplaces"
+                app:iconGravity="textStart"
+                app:iconSize="24dp" />
 
         </LinearLayout>
 
@@ -70,7 +85,9 @@
             android:backgroundTint="@color/button_color_2"
             android:padding="12dp"
             android:text="Inbox"
-            android:textColor="@color/static_text_color" />
+            android:textColor="@color/static_text_color"
+            app:icon="@android:drawable/ic_dialog_email"
+            app:iconGravity="textStart" />
 
         <Button
             android:id="@+id/btnLogout"
@@ -81,7 +98,9 @@
             android:padding="12dp"
             android:text="Logout"
             android:textColor="@color/static_text_color"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            app:icon="@android:drawable/ic_lock_power_off"
+            app:iconGravity="textStart" />
 
     </LinearLayout>
 

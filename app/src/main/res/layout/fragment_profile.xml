@@ -107,7 +107,9 @@
             android:backgroundTint="#F44336"
             android:text="Logout"
             android:textColor="@color/static_text_color"
-            android:textColorLink="@color/static_text_color" />
+            android:textColorLink="@color/static_text_color"
+            app:icon="@android:drawable/ic_lock_power_off"
+            app:iconGravity="textStart" />
 
     </LinearLayout>
 

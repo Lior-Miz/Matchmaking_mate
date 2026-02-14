@@ -83,7 +83,9 @@
             android:text="Add Friend"
             android:textColor="@color/static_text_color"
             android:textColorLink="#000000"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            app:icon="@android:drawable/ic_menu_add"
+            app:iconGravity="textStart" />
 
         <Button
             android:id="@+id/btnOpenChat"
@@ -94,7 +96,9 @@
             android:text="Send Message"
             android:textColor="@color/static_text_color"
             android:textColorLink="#000000"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            app:icon="@android:drawable/ic_dialog_email"
+            app:iconGravity="textStart" />
 
         <TextView
             android:id="@+id/tvSuggestFriend"

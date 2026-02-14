@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroundColor"
@@ -69,9 +70,10 @@
         android:background="@android:drawable/edit_text"
         android:hint="Search name..."
         android:padding="10dp"
-        android:textColor="@color/textColor"
+        android:textColor="@color/static_text_color"
+        android:textColorHighlight="@color/static_text_color"
         android:textColorHint="@color/static_text_color"
-        android:textColorLink="@color/textColor" />
+        android:textColorLink="@color/static_text_color" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -85,7 +87,9 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
             android:layout_weight="1"
-            android:text="Reset" />
+            android:text="Reset"
+            app:icon="@android:drawable/ic_menu_delete"
+            app:iconGravity="textStart" />
 
         <Button
             android:id="@+id/btnsearch"
@@ -94,7 +98,9 @@
             android:layout_marginStart="5dp"
             android:layout_weight="1"
             android:backgroundTint="@color/button_color_1"
-            android:text="Search" />
+            android:text="Search"
+            app:icon="@android:drawable/ic_menu_search"
+            app:iconGravity="textStart" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

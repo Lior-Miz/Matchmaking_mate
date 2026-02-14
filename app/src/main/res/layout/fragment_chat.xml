@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E5E5E5"
+    android:background="@color/backgroundColor"
 
     android:paddingTop="30dp">
 
@@ -72,9 +72,9 @@
         android:id="@+id/recyclerChat"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/chatHeader"
         android:layout_above="@id/bottomInputArea"
-        android:padding="10dp"
-        android:clipToPadding="false"/>
+        android:layout_below="@id/chatHeader"
+        android:clipToPadding="false"
+        android:padding="10dp" />
 
 </RelativeLayout>
