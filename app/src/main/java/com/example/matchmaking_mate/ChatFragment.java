@@ -25,7 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+
 import java.util.List;
 /*this fragments takes care of full chat screen: Shows messages on recycle view
 and reads messages from firebase in real time*/
@@ -119,14 +119,11 @@ public class ChatFragment extends Fragment {
         /*send messages to firebase and store messages twice, for reciever to sender + sender to reciever*/
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
 
-        HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("senderID", senderID);
-        hashMap.put("receiverID", receiverID);
-        hashMap.put("message", message);
-        hashMap.put("timestamp", System.currentTimeMillis());
+        Message msg = new Message(senderID, receiverID, message, System.currentTimeMillis());
+        messageList.add(msg);
 
-        reference.child("Chats").child(senderID).child(receiverID).push().setValue(hashMap); //save under sender chat
-        reference.child("Chats").child(receiverID).child(senderID).push().setValue(hashMap); //save under reciever chat
+        reference.child("Chats").child(senderID).child(receiverID).push().setValue(msg); //save under sender chat
+        reference.child("Chats").child(receiverID).child(senderID).push().setValue(msg); //save under reciever chat
     }
 
     private void readMessages(final String myID, final String userID) {
