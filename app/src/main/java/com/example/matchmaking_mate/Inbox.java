@@ -109,15 +109,32 @@ public class Inbox extends Fragment {
         if (FirebaseAuth.getInstance().getCurrentUser() == null) {
             return;
         }
-
+        fullList.clear();
         String myId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+        DatabaseReference gamesRef = FirebaseDatabase.getInstance().getReference("Users").child(myId).child("favoriteGames");
+        gamesRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot data : snapshot.getChildren()) {
+                    String gameName = snapshot.getValue(String.class);
+
+                    User community = new User("Community: " +gameName,"","","COM:"+gameName);
+                    fullList.add(community);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         dbRef = FirebaseDatabase.getInstance().getReference("Chats").child(myId);
 
         dbRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                fullList.clear();
 
                 for (DataSnapshot data : snapshot.getChildren()) {
                     String chatPartnerId = data.getKey();
@@ -186,16 +203,30 @@ public class Inbox extends Fragment {
 
 
     private void openChat(User user) {
-        ChatFragment chatFragment = new ChatFragment();
-        Bundle args = new Bundle();
-        args.putString("targetId", user.getUserid());
-        args.putString("targetName", user.getFullname());
-        chatFragment.setArguments(args);
+        if(user.getUserid().startsWith("COM:")) {
+            ChatFragment chatFragment = new ChatFragment();
+            Bundle args=new Bundle();
+            CommunityChatFragment communityChatFragment=new CommunityChatFragment();
+            communityChatFragment.setArguments(args);
 
-        getParentFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, chatFragment)
-                .addToBackStack(null)
-                .commit();
+            getParentFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, chatFragment)
+                    .addToBackStack(null)
+                    .commit();
+        }
+
+        else {
+            ChatFragment chatFragment = new ChatFragment();
+            Bundle args = new Bundle();
+            args.putString("targetId", user.getUserid());
+            args.putString("targetName", user.getFullname());
+            chatFragment.setArguments(args);
+
+            getParentFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, chatFragment)
+                    .addToBackStack(null)
+                    .commit();
+        }
     }
 
 
