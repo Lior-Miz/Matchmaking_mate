@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     android:background="@color/backgroundColor"
 
-    android:paddingTop="30dp">
+    android:paddingTop="30dp"
+    android:layoutDirection="ltr">
 
     <LinearLayout
         android:id="@+id/chatHeader"

@@ -6,7 +6,8 @@
     android:clickable="true"
     android:focusable="true"
     android:padding="24dp"
-    android:background="@color/backgroundColor">
+    android:background="@color/backgroundColor"
+    android:layoutDirection="ltr">
 
     <Button
         android:id="@+id/btnBackToMatches"
