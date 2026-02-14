@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/outline_color"
             android:padding="10dp"
-            android:text="Back"
+            android:text="@string/back"
             android:textColor="@color/textColor"
             android:textSize="16sp" />
 
@@ -55,7 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:hint="Type a message..."
+            android:hint="@string/typeMessage"
             android:maxLines="3"
             android:padding="10dp" />
 
@@ -64,7 +64,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/button_color_1"
-            android:text="Send"
+            android:text="@string/send"
             android:textColor="#FFFFFF" />
     </LinearLayout>
 

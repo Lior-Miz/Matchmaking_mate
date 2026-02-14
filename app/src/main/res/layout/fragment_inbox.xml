@@ -25,7 +25,7 @@
             android:clickable="true"
             android:focusable="true"
             android:padding="10dp"
-            android:text="Back"
+            android:text="@string/back"
             android:textColor="@color/textColor"
             android:textColorHint="@color/textColor"
             android:textSize="18sp" />
@@ -53,7 +53,7 @@
         android:layout_height="50dp"
         android:layout_marginBottom="10dp"
         android:background="@android:drawable/edit_text"
-        android:hint="Search name..."
+        android:hint="@string/searchField"
         android:padding="10dp"
         android:textColor="@color/static_text_color"
         android:textColorHighlight="@color/static_text_color"
@@ -72,7 +72,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
             android:layout_weight="1"
-            android:text="Reset"
+            android:text="@string/reset"
             android:textColor="@color/static_text_color"
             app:icon="@android:drawable/ic_menu_delete"
             app:iconGravity="textStart" />
@@ -84,7 +84,7 @@
             android:layout_marginStart="5dp"
             android:layout_weight="1"
             android:backgroundTint="@color/button_color_1"
-            android:text="Search"
+            android:text="@string/search"
             android:textColor="@color/static_text_color"
             app:icon="@android:drawable/ic_menu_search"
             app:iconGravity="textStart" />

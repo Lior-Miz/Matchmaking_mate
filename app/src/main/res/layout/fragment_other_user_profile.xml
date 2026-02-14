@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/outline_color"
         android:padding="10dp"
-        android:text="Back"
+        android:text="@string/back"
         android:textColor="@color/textColor"
         android:textColorLink="@color/textColor"
         android:textSize="18sp"
@@ -64,7 +64,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:text="Favorite games"
+            android:text="@string/profileFavGame"
             android:textColor="@color/textColor"
             android:textSize="18sp" />
 
@@ -80,7 +80,7 @@
             android:id="@+id/btnFriend"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:text="Add Friend"
+            android:text="@string/addFriend"
             android:textColor="@color/static_text_color"
             android:textColorLink="#000000"
             android:textSize="18sp"
@@ -93,7 +93,7 @@
             android:layout_height="60dp"
             android:layout_marginBottom="10dp"
             android:backgroundTint="#2196F3"
-            android:text="Send Message"
+            android:text="@string/sendMessage"
             android:textColor="@color/static_text_color"
             android:textColorLink="#000000"
             android:textSize="18sp"
@@ -105,7 +105,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:text="Suggested friends"
+            android:text="@string/suggestedFriends"
             android:textColor="@color/textColor"
             android:textSize="18sp" />
 
