@@ -55,7 +55,7 @@ public class OtherUserProfileFragment extends Fragment {
         ChipSuggestFriend = view.findViewById(R.id.ChipSuggestFriend);
         OtherchipGroupGames = view.findViewById(R.id.OtherchipGroupGames);
 
-
+        // get data from bundle that was passed from previous screen
         if (getArguments() != null) {
             userId = getArguments().getString("userId");
             userName = getArguments().getString("userName");
@@ -72,7 +72,7 @@ public class OtherUserProfileFragment extends Fragment {
             displayFavoriteGames(favoriteGames);
             loadSuggestedFriends();
 
-            String myId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            String myId = FirebaseAuth.getInstance().getCurrentUser().getUid();             // check if friend is added already
             DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Users").child(myId);
             myRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -190,7 +190,7 @@ public class OtherUserProfileFragment extends Fragment {
                 User me = mySnapshot.getValue(User.class);
                 if (me == null) return;
 
-                if (me.getFriends() == null || !me.getFriends().contains(userId)) {
+                if (me.getFriends() == null || !me.getFriends().contains(userId)) { //only show if firnd
                     displayPrivacyMessage();
                     return;
                 }
