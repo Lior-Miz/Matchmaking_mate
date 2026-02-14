@@ -23,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
+/* displays all users except the current user, allows searching by name and game and navigate to selected user's profile */
 
 public class MatchesFragment extends Fragment {
 
@@ -35,7 +36,7 @@ public class MatchesFragment extends Fragment {
     private List<User> fullList;
     private DatabaseReference dbRef;
 
-    private String currentSearchQuery = "";
+    private String currentSearchQuery = ""; //current active filters (will be changed when user changes them)
     private String currentGameFilter = "All Games";
 
     public MatchesFragment() {
@@ -43,6 +44,7 @@ public class MatchesFragment extends Fragment {
 
     @Nullable
     @Override
+    /*setup up xml, recycle view, firebase, buttons and spinner*/
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_matches, container, false);
 
@@ -55,7 +57,7 @@ public class MatchesFragment extends Fragment {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        displayList = new ArrayList<>();
+        displayList = new ArrayList<>(); //initialize lists
         fullList = new ArrayList<>();
 
         adapter = new UserAdapter(getContext(), displayList, new UserAdapter.OnUserClickListener() {
@@ -66,14 +68,14 @@ public class MatchesFragment extends Fragment {
         });
         recyclerView.setAdapter(adapter);
 
-        loadUsers();
+        loadUsers(); //load users from firebase
 
-        ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(getContext(),
+        ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(getContext(),  //spinner setup and loads game list
                 R.array.games_array, android.R.layout.simple_spinner_item);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         gameSpinner.setAdapter(spinnerAdapter);
 
-        gameSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        gameSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() { //when user changes game, filter the search to it
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 currentGameFilter = parent.getItemAtPosition(position).toString();
@@ -85,7 +87,7 @@ public class MatchesFragment extends Fragment {
             }
         });
 
-        btnSearch.setOnClickListener(new View.OnClickListener() {
+        btnSearch.setOnClickListener(new View.OnClickListener() { //search button
             @Override
             public void onClick(View v) {
                 currentSearchQuery = etSearch.getText().toString();
@@ -93,7 +95,7 @@ public class MatchesFragment extends Fragment {
             }
         });
 
-        btnReset.setOnClickListener(new View.OnClickListener() {
+        btnReset.setOnClickListener(new View.OnClickListener() { //reset button that clears filters
             @Override
             public void onClick(View v) {
                 etSearch.setText("");
@@ -104,7 +106,7 @@ public class MatchesFragment extends Fragment {
             }
         });
 
-        btnBack.setOnClickListener(new View.OnClickListener() {
+        btnBack.setOnClickListener(new View.OnClickListener() { //back button
             @Override
             public void onClick(View v) {
                 getParentFragmentManager().beginTransaction()
@@ -116,7 +118,7 @@ public class MatchesFragment extends Fragment {
         return view;
     }
 
-    private void loadUsers() {
+    private void loadUsers() { //load users from firebase (except current user), store them in a list then apply filter when needed
         if (FirebaseAuth.getInstance().getCurrentUser() == null) {
             return;
         }
@@ -128,15 +130,15 @@ public class MatchesFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 fullList.clear();
-                for (DataSnapshot data : snapshot.getChildren()) {
+                for (DataSnapshot data : snapshot.getChildren()) { //loop through users in firebase
                     User user = data.getValue(User.class);
 
-                    if (user != null && data.getKey() != null && !data.getKey().equals(myId)) {
+                    if (user != null && data.getKey() != null && !data.getKey().equals(myId)) { //skip current user
                         user.setUserid(data.getKey());
                         fullList.add(user);
                     }
                 }
-                applyFilters();
+                applyFilters(); //apply filters
                 adapter.notifyDataSetChanged();
             }
 
@@ -147,11 +149,11 @@ public class MatchesFragment extends Fragment {
         });
     }
 
-    private void applyFilters() {
+    private void applyFilters() {  //filter application
         displayList.clear();
         List<User> filteredByName = new ArrayList<>();
 
-        if (currentSearchQuery.isEmpty()) {
+        if (currentSearchQuery.isEmpty()) { // filter by name
             filteredByName.addAll(fullList);
         } else {
             String lowerCaseQuery = currentSearchQuery.toLowerCase();
@@ -162,7 +164,7 @@ public class MatchesFragment extends Fragment {
             }
         }
 
-        if (currentGameFilter.equals("All Games")) {
+        if (currentGameFilter.equals("All Games")) { //filter by selected game from spinner
             displayList.addAll(filteredByName);
         } else {
             for (User user : filteredByName) {
@@ -175,7 +177,7 @@ public class MatchesFragment extends Fragment {
     }
 
 
-    private void moveToUserProfile(User user) {
+    private void moveToUserProfile(User user) { //navigation to other user profile, passes the data using bundle for future use
         OtherUserProfileFragment fragment = new OtherUserProfileFragment();
         Bundle bundle = new Bundle();
         bundle.putString("userId", user.getUserid());

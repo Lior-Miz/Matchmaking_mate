@@ -23,7 +23,7 @@ import com.google.android.material.chip.ChipGroup;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/*view other user profile, adding friends, suggestion of friends of friends (fof), chat navigation*/
 public class OtherUserProfileFragment extends Fragment {
 
     private TextView tvName, tvPhone;
@@ -41,7 +41,8 @@ public class OtherUserProfileFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    /*retrieve data from bundle from previous screen, inflate layout (xml to java), display user info*/
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) { //retrieve data from bundle from previous screen
         View view = inflater.inflate(R.layout.fragment_other_user_profile, container, false);
 
 
@@ -69,8 +70,8 @@ public class OtherUserProfileFragment extends Fragment {
             if (userPhone != null) {
                 tvPhone.setText(userPhone);
             }
-            displayFavoriteGames(favoriteGames);
-            loadSuggestedFriends();
+            displayFavoriteGames(favoriteGames); //show fav games
+            loadSuggestedFriends(); //shot suggested friends
 
             String myId = FirebaseAuth.getInstance().getCurrentUser().getUid();             // check if friend is added already
             DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Users").child(myId);
@@ -92,14 +93,14 @@ public class OtherUserProfileFragment extends Fragment {
         }
 
 
-        btnBack.setOnClickListener(new View.OnClickListener() {
+        btnBack.setOnClickListener(new View.OnClickListener() { //back button
             @Override
             public void onClick(View v) {
                 getParentFragmentManager().popBackStack();
             }
         });
 
-        btnChat.setOnClickListener(new View.OnClickListener() {
+        btnChat.setOnClickListener(new View.OnClickListener() { //button that sends you to chat screen
             @Override
             public void onClick(View v) {
                 if (userId != null && !userId.isEmpty()) {
@@ -120,7 +121,7 @@ public class OtherUserProfileFragment extends Fragment {
         });
         return view;
     }
-    private void addFriend() {
+    private void addFriend() {  //fetch current user's friend list, add them if not already friend, update firebase and refresh suggestion
         String myId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Users").child(myId);
 
@@ -132,7 +133,7 @@ public class OtherUserProfileFragment extends Fragment {
                     List<String> friends = me.getFriends();
                     if (friends == null) friends = new ArrayList<>();
 
-                    if (!friends.contains(userId)) {
+                    if (!friends.contains(userId)) {                         //prevents duplicating
                         friends.add(userId);
                         myRef.child("friends").setValue(friends).addOnCompleteListener(task -> {
                             if (task.isSuccessful()) {
@@ -157,7 +158,7 @@ public class OtherUserProfileFragment extends Fragment {
     }
 
 
-    private void displayFavoriteGames(List<String> games) {
+    private void displayFavoriteGames(List<String> games) {  //display favorite games with chips
         if (OtherchipGroupGames == null || getContext() == null) return;
         OtherchipGroupGames.removeAllViews();
 
@@ -178,6 +179,10 @@ public class OtherUserProfileFragment extends Fragment {
         }
     }
 
+
+    /* suggests friends-of-friends based on: the viewed user's friend list
+     mutual game interests with current user
+     only shows if the viewed user is already a friend    */
     private void loadSuggestedFriends() {
         if (ChipSuggestFriend != null) ChipSuggestFriend.removeAllViews();
 
@@ -190,7 +195,7 @@ public class OtherUserProfileFragment extends Fragment {
                 User me = mySnapshot.getValue(User.class);
                 if (me == null) return;
 
-                if (me.getFriends() == null || !me.getFriends().contains(userId)) { //only show if firnd
+                if (me.getFriends() == null || !me.getFriends().contains(userId)) { //only show if friend
                     displayPrivacyMessage();
                     return;
                 }
@@ -270,7 +275,7 @@ public class OtherUserProfileFragment extends Fragment {
         });
     }
 
-    private void addSingleSuggestedFriendChip(String friendId) {
+    private void addSingleSuggestedFriendChip(String friendId) { //create clickable chip for suggested friend that opens their profile
         if (ChipSuggestFriend == null || getContext() == null) return;
         if (ChipSuggestFriend.findViewWithTag(friendId) != null) return;
 
@@ -302,7 +307,7 @@ public class OtherUserProfileFragment extends Fragment {
         });
     }
 
-    private void displayPrivacyMessage() {
+    private void displayPrivacyMessage() {  //viewed user is not a friend, hide their friend suggestions
         if (ChipSuggestFriend == null || getContext() == null) return;
         ChipSuggestFriend.removeAllViews();
         Chip chip = new Chip(getContext());
@@ -314,7 +319,7 @@ public class OtherUserProfileFragment extends Fragment {
         ChipSuggestFriend.addView(chip);
     }
 
-    private void displayNoFriendsMessage() {
+    private void displayNoFriendsMessage() {  //shows suggestion, if no suggestion exist then send message
         if (ChipSuggestFriend == null || getContext() == null) return;
         if (ChipSuggestFriend.getChildCount() > 0) return;
 
@@ -327,7 +332,7 @@ public class OtherUserProfileFragment extends Fragment {
         ChipSuggestFriend.addView(noFriendsChip);
     }
 
-    private void openChat() {
+    private void openChat() {  //sends to chat screen, takes name and id of viewed user
         ChatFragment chatFragment = new ChatFragment();
         Bundle args = new Bundle();
         args.putString("targetId", userId);
@@ -340,7 +345,7 @@ public class OtherUserProfileFragment extends Fragment {
                 .commit();
     }
 
-    private void moveToOtherID(User user) {
+    private void moveToOtherID(User user) {  //open other user profile
         OtherUserProfileFragment fragment = new OtherUserProfileFragment();
         Bundle bundle = new Bundle();
         bundle.putString("userId", user.getUserid());
@@ -355,5 +360,3 @@ public class OtherUserProfileFragment extends Fragment {
                 .replace(R.id.fragment_container, fragment).addToBackStack(null).commit();
     }
 }
-
-

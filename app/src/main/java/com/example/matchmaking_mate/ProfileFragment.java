@@ -23,7 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import java.util.List;
-
+/*display selected logged in user profile, shows email, phone, games and friends*/
 public class ProfileFragment extends Fragment {
 
     private TextView tvName, tvEmail, tvPhone;
@@ -39,11 +39,13 @@ public class ProfileFragment extends Fragment {
 
     @Nullable
     @Override
+    /*get current user and shows their data*/
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_profile, container, false); //xml to java objects
 
         auth = FirebaseAuth.getInstance();
-        FirebaseUser currentUser = auth.getCurrentUser();
+        FirebaseUser currentUser = auth.getCurrentUser(); //get current user
+
 
         tvName = view.findViewById(R.id.tvProfileName);
         tvEmail = view.findViewById(R.id.tvProfileEmail);
@@ -54,18 +56,18 @@ public class ProfileFragment extends Fragment {
         chipGroupFriends = view.findViewById(R.id.chipGroupFriends);
 
 
-        if (currentUser != null) {
+        if (currentUser != null) {  //prevents crash
             loadUserProfile(currentUser.getUid());
         }
 
-        btnBackProf.setOnClickListener(new View.OnClickListener() {
+        btnBackProf.setOnClickListener(new View.OnClickListener() { //back button
             @Override
             public void onClick(View v) {
                 getParentFragmentManager().popBackStack();
             }
         });
 
-        btnLogout.setOnClickListener(new View.OnClickListener() {
+        btnLogout.setOnClickListener(new View.OnClickListener() { //allows loguout
             @Override
             public void onClick(View v) {
                 auth.signOut();
@@ -78,8 +80,9 @@ public class ProfileFragment extends Fragment {
         return view;
     }
 
+    /*retrieve user data from firebase*/
     private void loadUserProfile(String userId) {
-        dbRef = FirebaseDatabase.getInstance().getReference("Users").child(userId);
+        dbRef = FirebaseDatabase.getInstance().getReference("Users").child(userId); //get user data from firebase
         dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -89,7 +92,7 @@ public class ProfileFragment extends Fragment {
                     tvEmail.setText(user.getEmail());
                     tvPhone.setText(user.getPhone());
 
-                    List<String> games = user.getFavoriteGames();
+                    List<String> games = user.getFavoriteGames(); //shows favorite games
                     chipGroupGames.removeAllViews();
 
                     if (games != null && !games.isEmpty()) {
@@ -111,9 +114,9 @@ public class ProfileFragment extends Fragment {
                 chipGroupFriends.removeAllViews();
                 List<String> friendsIds = user.getFriends();
 
-                if (friendsIds != null && !friendsIds.isEmpty()) {
+                if (friendsIds != null && !friendsIds.isEmpty()) {  //shows friends
                     for (String friendId : friendsIds) {
-                        DatabaseReference friendRef = FirebaseDatabase.getInstance().getReference("Users").child(friendId);
+                        DatabaseReference friendRef = FirebaseDatabase.getInstance().getReference("Users").child(friendId); //if friend exists, show their name and create chip
                         friendRef.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -121,7 +124,7 @@ public class ProfileFragment extends Fragment {
 
                                 if (friendName != null) {
 
-                                    Chip chip = new Chip(getContext());
+                                    Chip chip = new Chip(getContext());  //nested firebase read data from firebase, retrieve friend name and create chip
                                     chip.setText(friendName);
                                     chip.setChipBackgroundColor(ColorStateList.valueOf(Color.parseColor("#E3F2FD")));
                                     chip.setTextColor(Color.BLACK);
@@ -143,7 +146,7 @@ public class ProfileFragment extends Fragment {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+            public void onCancelled(@NonNull DatabaseError error) {  //if firebase fails shows error
                 Toast.makeText(getContext(), "Failed to load profile", Toast.LENGTH_SHORT).show();
             }
         });

@@ -1,5 +1,5 @@
 package com.example.matchmaking_mate;
-
+/* message construction for id of reciever/sender/timestamp/message */
 public class Message {
 
     private String senderID;

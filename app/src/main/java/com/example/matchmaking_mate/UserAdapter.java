@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
+/*adapter for recycle view for list of users, show their name and games, prepare listeners for clicks*/
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder> {
 
     private Context context;
@@ -17,11 +18,11 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
 
     private List<User> filteredUsers;
 
-    public interface OnUserClickListener {
+    public interface OnUserClickListener { //handles click on users in recycle view
         void onUserClick(User user);
     }
 
-    public UserAdapter(Context context, List<User> users, OnUserClickListener listener) {
+    public UserAdapter(Context context, List<User> users, OnUserClickListener listener) { //stores user list and click listeners, needed for recycle view
         this.context = context;
         this.users = users;
         this.listener = listener;
@@ -29,8 +30,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
 
     @NonNull
     @Override
-    public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_user, parent, false);
+    public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) { //viewholder for recycle view item
+        View view = LayoutInflater.from(context).inflate(R.layout.item_user, parent, false); //xml to java
         return new UserViewHolder(view);
     }
 
@@ -41,19 +42,17 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         holder.tvName.setText(user.getFullname());
 
         if (ListGames == null || ListGames.isEmpty()){
-            //holder.tvGames.setVisibility(View.GONE);
             holder.tvGames.setText("");
         }
 
         else{
-            //holder.tvGames.setVisibility(View.VISIBLE);
             String games = ListGames.toString().replace("[","").replace("]","").trim();
             holder.tvGames.setText(games);
 
         }
 
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() { //click listener
             @Override
             public void onClick(View v) {
                 listener.onUserClick(user);
@@ -63,7 +62,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
 
     @Override
     public int getItemCount() {
-        return users.size();
+        return users.size(); // number of total users for the recycle view
     }
 
     public static class UserViewHolder extends RecyclerView.ViewHolder {

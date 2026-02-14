@@ -3,6 +3,8 @@ package com.example.matchmaking_mate;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/*user constructor for name, email, phone, id, favorite games and friends */
 public class User {
 
     private String fullname;

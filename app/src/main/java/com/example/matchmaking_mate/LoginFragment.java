@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+/* this fragment takes care of login screen and handles user authentication */
 public class LoginFragment extends Fragment {
 
     private EditText emailInput, passwordInput;
@@ -27,7 +28,7 @@ public class LoginFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_login, container, false);
+        View view = inflater.inflate(R.layout.fragment_login, container, false); //turn xml to java objects
 
         auth = FirebaseAuth.getInstance();
 
@@ -36,7 +37,7 @@ public class LoginFragment extends Fragment {
         btnLogin = view.findViewById(R.id.btnLogin);
         linkRegister = view.findViewById(R.id.tvGotoRegister);
 
-        linkRegister.setOnClickListener(new View.OnClickListener() {
+        linkRegister.setOnClickListener(new View.OnClickListener() { //register screen
             @Override
             public void onClick(View v) {
                 getParentFragmentManager().beginTransaction()
@@ -45,7 +46,7 @@ public class LoginFragment extends Fragment {
             }
         });
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
+        btnLogin.setOnClickListener(new View.OnClickListener() { //login button, collect info and validate and calls login function (loginuser)
             @Override
             public void onClick(View v) {
                 String txtEmail = emailInput.getText().toString().trim();
@@ -62,11 +63,11 @@ public class LoginFragment extends Fragment {
         return view;
     }
 
-    private void loginUser(String email, String password) {
+    private void loginUser(String email, String password) { // authenticate email and password with firebase
         auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
+                    public void onComplete(@NonNull Task<AuthResult> task) {    //if successful log in and go to home screen
                         if (task.isSuccessful()) {
                             Toast.makeText(getContext(), "Login successful", Toast.LENGTH_SHORT).show();
                             if (getActivity() != null) {
@@ -74,7 +75,7 @@ public class LoginFragment extends Fragment {
                                         .replace(R.id.fragment_container, new HomeFragment())
                                         .commit();
                             }
-                        } else {
+                        } else {  // if it fails display error message
                             String msg = "Authentication failed";
                             if (task.getException() != null) {
                                 msg = task.getException().getMessage();

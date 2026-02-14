@@ -23,8 +23,9 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
+    /* convert xml to java objects and firebase user is retrieved */
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_home, container, false); //inflate layout
 
         auth = FirebaseAuth.getInstance();
 
@@ -35,22 +36,22 @@ public class HomeFragment extends Fragment {
         btnInbox = view.findViewById(R.id.btn_inbox);
 
 
-        FirebaseUser user = auth.getCurrentUser();
-        if (user != null) {
+        FirebaseUser user = auth.getCurrentUser(); //get current user thats logged in
+        if (user != null) { //display email if user exists
             tvEmail.setText("Hello,\n" + user.getEmail());
         }
 
-        btnProfile.setOnClickListener(new View.OnClickListener() {
+        btnProfile.setOnClickListener(new View.OnClickListener() { //profile screen button
             @Override
             public void onClick(View v) {
                 getParentFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container, new ProfileFragment())
-                        .addToBackStack(null)
+                        .addToBackStack(null) //allows back button
                         .commit();
             }
         });
 
-        btnMatches.setOnClickListener(new View.OnClickListener() {
+        btnMatches.setOnClickListener(new View.OnClickListener() { //go to matches screen
             @Override
             public void onClick(View v) {
                 getParentFragmentManager().beginTransaction()
@@ -59,7 +60,7 @@ public class HomeFragment extends Fragment {
                         .commit();
             }
         });
-        btnInbox.setOnClickListener(new View.OnClickListener() {
+        btnInbox.setOnClickListener(new View.OnClickListener() { //inbox button
             @Override
             public void onClick(View v) {
                 getParentFragmentManager().beginTransaction()
@@ -70,13 +71,13 @@ public class HomeFragment extends Fragment {
         });
 
 
-        btnLogout.setOnClickListener(new View.OnClickListener() {
+        btnLogout.setOnClickListener(new View.OnClickListener() { //logout button
             @Override
             public void onClick(View v) {
-                auth.signOut();
+                auth.signOut(); //singout from firebase
                 Toast.makeText(getContext(), "Logged out successfully", Toast.LENGTH_SHORT).show();
 
-                if (getActivity() != null) {
+                if (getActivity() != null) { //go back to login screen
                     getParentFragmentManager().beginTransaction()
                             .replace(R.id.fragment_container, new LoginFragment())
                             .commit();

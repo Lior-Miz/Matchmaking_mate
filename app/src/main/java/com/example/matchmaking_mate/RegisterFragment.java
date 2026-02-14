@@ -23,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
+/*allows creating of a user with valid email, password and favorite games*/
 public class RegisterFragment extends Fragment {
 
     private EditText etName, etEmail, etPassword, etPhone;
@@ -40,7 +41,7 @@ public class RegisterFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_register, container, false);
+        View view = inflater.inflate(R.layout.fragment_register, container, false); //xml to java object
 
         auth = FirebaseAuth.getInstance();
         dbRef = FirebaseDatabase.getInstance().getReference();
@@ -59,7 +60,7 @@ public class RegisterFragment extends Fragment {
         cbGta = view.findViewById(R.id.cbGta);
         cbNba = view.findViewById(R.id.cbNba);
 
-        tvAlreadyHaveAccount.setOnClickListener(new View.OnClickListener() {
+        tvAlreadyHaveAccount.setOnClickListener(new View.OnClickListener() { //button to send back to login if you have account
             @Override
             public void onClick(View v) {
                 getParentFragmentManager().beginTransaction()
@@ -69,7 +70,7 @@ public class RegisterFragment extends Fragment {
 
         });
 
-        btnRegister.setOnClickListener(new View.OnClickListener() {
+        btnRegister.setOnClickListener(new View.OnClickListener() { //register button
             @Override
             public void onClick(View v) {
                 registerUser();
@@ -79,7 +80,7 @@ public class RegisterFragment extends Fragment {
         return view;
     }
 
-    private void registerUser() {
+    private void registerUser() { //check if all fields are valid then save to firebase when done
         String name = etName.getText().toString().trim();
         String email = etEmail.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
@@ -113,6 +114,7 @@ public class RegisterFragment extends Fragment {
                 });
     }
 
+    /*collect fav games, create user object, make empty friend list and user profile to real time firebase*/
     private void saveUserToDatabase(String userId, String name, String email, String phone) {
         List<String> selectedGames = new ArrayList<>();
 
