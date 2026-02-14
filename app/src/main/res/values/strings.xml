@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Matchmaking_mate</string>
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string-array name="games_array">
         <item>All Games</item>
         <item>FIFA</item>
@@ -10,5 +10,43 @@
         <item>Minecraft</item>
         <item>NBA 2K</item>
     </string-array>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+
+    <string name="name">Full Name</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="phone">Phone Number</string>
+    <string name="favoriteGames">Select Favorite Games:</string>
+
+    <string name="alreadyHaveAccount">Already have an account? Login</string>
+    <string name="createAccount">Create Account</string>
+
+    <string name="profile">My Profile</string>
+    <string name="matches">Find Matches</string>
+    <string name="inbox">Inbox</string>
+    <string name="logout">Logout</string>
+
+    <string name="home">Home</string>
+    <string name="back">Back</string>
+    <string name="search">Search</string>
+    <string name="reset">Reset</string>
+
+    <string name="send">Send</string>
+    <string name="typeMessage">Type a message</string>
+    <string name="searchField">Search a user</string>
+
+    <string name="gameFilter">Filter by game:</string>
+
+    <string name="profileFavGame">Favorite games</string>
+    <string name="addFriend">Add Friend</string>
+    <string name="sendMessage">Send Message</string>
+    <string name="suggestedFriends">Suggested friends</string>
+
+
+
+
+
+
 </resources>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="login">התחבר</string>
+    <string name="register">הירשם</string>
+
+    <string name="name">שם מלא</string>
+    <string name="email">אימייל</string>
+    <string name="password">סיסמה</string>
+    <string name="phone">מספר טלפון</string>
+    <string name="favoriteGames">בחר משחקים מועדפים:</string>
+
+    <string name="alreadyHaveAccount">כבר יש לך חשבון? התחבר</string>
+    <string name="createAccount">צור חשבון</string>
+
+    <string name="profile">הפרופיל שלי</string>
+    <string name="matches">מצא התאמות</string>
+    <string name="inbox">תיבת הודעות</string>
+    <string name="logout">התנתק</string>
+
+    <string name="home">בית</string>
+    <string name="back">חזור</string>
+    <string name="search">חיפוש</string>
+    <string name="reset">איפוס</string>
+
+    <string name="send">שלח</string>
+    <string name="typeMessage">הקלד הודעה</string>
+    <string name="searchField">חפש משתמש</string>
+
+    <string name="gameFilter">סנן לפי משחק:</string>
+
+    <string name="profileFavGame">משחקים מועדפים</string>
+    <string name="addFriend">הוסף חבר</string>
+    <string name="sendMessage">שלח הודעה</string>
+    <string name="suggestedFriends">חברים מוצעים</string>
+
+</resources>
