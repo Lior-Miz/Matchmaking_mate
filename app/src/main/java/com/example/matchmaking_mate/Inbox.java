@@ -204,13 +204,15 @@ public class Inbox extends Fragment {
 
     private void openChat(User user) {
         if(user.getUserid().startsWith("COM:")) {
-            ChatFragment chatFragment = new ChatFragment();
+            CommunityChatFragment CommunitychatFragment = new CommunityChatFragment();
             Bundle args=new Bundle();
+            args.putString("targetId", user.getUserid());
+            args.putString("targetName", user.getFullname());
             CommunityChatFragment communityChatFragment=new CommunityChatFragment();
             communityChatFragment.setArguments(args);
 
             getParentFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, chatFragment)
+                    .replace(R.id.fragment_container, CommunitychatFragment)
                     .addToBackStack(null)
                     .commit();
         }
