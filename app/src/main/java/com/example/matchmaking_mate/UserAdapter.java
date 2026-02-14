@@ -37,10 +37,21 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     @Override
     public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
         User user = users.get(position);
-        String ListGames = user.getFavoriteGames().toString();
+        List<String> ListGames = user.getFavoriteGames();
         holder.tvName.setText(user.getFullname());
-        //for(String game : ListGames)
-        holder.tvGames.setText(ListGames);
+
+        if (ListGames == null || ListGames.isEmpty()){
+            //holder.tvGames.setVisibility(View.GONE);
+            holder.tvGames.setText("");
+        }
+
+        else{
+            //holder.tvGames.setVisibility(View.VISIBLE);
+            String games = ListGames.toString().replace("[","").replace("]","").trim();
+            holder.tvGames.setText(games);
+
+        }
+
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

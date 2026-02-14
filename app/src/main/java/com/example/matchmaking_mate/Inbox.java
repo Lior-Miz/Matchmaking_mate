@@ -117,7 +117,7 @@ public class Inbox extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot data : snapshot.getChildren()) {
-                    String gameName = snapshot.getValue(String.class);
+                    String gameName = data.getValue(String.class);
 
                     User community = new User("Community: " +gameName,"","","COM:"+gameName);
                     fullList.add(community);
