@@ -77,7 +77,7 @@ public class MatchesFragment extends Fragment {
 
         gameSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() { //when user changes game, filter the search to it
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) { // ? means that it can be any type (including null)
                 currentGameFilter = parent.getItemAtPosition(position).toString();
                 applyFilters();
             }
