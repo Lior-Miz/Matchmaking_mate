@@ -134,7 +134,7 @@ public class ChatFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) { //when firebase gets changed update
                 messageList.clear();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) { //message loop in firebase
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) { //message loop in firebaase
                     Message message = snapshot.getValue(Message.class);
                     if (message != null) {
                         messageList.add(message);
@@ -147,7 +147,7 @@ public class ChatFragment extends Fragment {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) { //if firebase fails
+            public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
     }

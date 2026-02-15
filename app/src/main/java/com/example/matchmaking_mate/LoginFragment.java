@@ -91,8 +91,8 @@ public class LoginFragment extends Fragment {
         auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {    //if successful log in and go to home screen
-                        if (task.isSuccessful()) {
+                    public void onComplete(@NonNull Task<AuthResult> login_Attempt) {    //if successful log in and go to home screen
+                        if (login_Attempt.isSuccessful()) {
                             Toast.makeText(getContext(), "Login successful", Toast.LENGTH_SHORT).show();
                             if (getActivity() != null) {
                                 getParentFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();

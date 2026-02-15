@@ -155,7 +155,7 @@ public class Inbox extends Fragment {
         });
     }
 
-    private void convertToUser(String userID) {
+    private void convertToUser(String userID) { //turns id from snaphsot to user object
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users").child(userID);
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -183,14 +183,14 @@ public class Inbox extends Fragment {
         });
     }
 
-    private void applyFilters() {
+    private void applyFilters() { //filter by name
         displayList.clear();
         List<User> filteredByName = new ArrayList<>();
 
-        if (currentSearchQuery.isEmpty()) {
+        if (currentSearchQuery.isEmpty()) {     //shows them all if not filtered
             filteredByName.addAll(fullList);
         } else {
-            String lowerCaseQuery = currentSearchQuery.toLowerCase();
+            String lowerCaseQuery = currentSearchQuery.toLowerCase();   //other wise use this if to filter
             for (User user : fullList) {
                 if (user.getFullname() != null && user.getFullname().toLowerCase().contains(lowerCaseQuery)) {
                     filteredByName.add(user);
@@ -204,7 +204,7 @@ public class Inbox extends Fragment {
 
 
     private void openChat(User user) {
-        if(user.getUserid().startsWith("COM:")) {
+        if(user.getUserid().startsWith("COM:")) {   //opens community chat
             CommunityChatFragment communitychatFragment = new CommunityChatFragment();
             Bundle args=new Bundle();
             args.putString("targetId", user.getUserid());
@@ -217,7 +217,7 @@ public class Inbox extends Fragment {
         }
 
         else {
-            ChatFragment chatFragment = new ChatFragment();
+            ChatFragment chatFragment = new ChatFragment();   //opens normal chat with user users
             Bundle args = new Bundle();
             args.putString("targetId", user.getUserid());
             args.putString("targetName", user.getFullname());

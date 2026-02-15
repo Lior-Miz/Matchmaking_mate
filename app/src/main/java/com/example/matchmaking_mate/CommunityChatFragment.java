@@ -121,7 +121,7 @@ public class CommunityChatFragment extends Fragment {
         return view;
     }
 
-    private void sendCommunityMessage(String senderID, String groupID, String message) {
+    private void sendCommunityMessage(String senderID, String groupID, String message) {  //sends messages in community chat
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         dbRef = FirebaseDatabase.getInstance().getReference("Users").child(senderID);
         dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -131,7 +131,7 @@ public class CommunityChatFragment extends Fragment {
                     String senderName = snapshot.child("fullname").getValue(String.class);
                     String message_with_sender = senderName + ": \n" + message;
                     List<Message> messageList = new ArrayList<>();
-                    Message msg = new Message(senderID, groupID, message_with_sender, System.currentTimeMillis());
+                    Message msg = new Message(senderID, groupID, message_with_sender, System.currentTimeMillis());    //sends the name of the sender and their message
                     messageList.add(msg);
 
 
@@ -148,7 +148,7 @@ public class CommunityChatFragment extends Fragment {
     }
 
     private void readCommunityMessages(final String groupID) {
-        dbRef = FirebaseDatabase.getInstance().getReference("Groups").child(groupID);
+        dbRef = FirebaseDatabase.getInstance().getReference("Groups").child(groupID);    //read messages from other users, gets their name and their message content
         dbRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
