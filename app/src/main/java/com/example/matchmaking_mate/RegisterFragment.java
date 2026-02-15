@@ -1,5 +1,7 @@
 package com.example.matchmaking_mate;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -12,9 +14,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.os.LocaleListCompat;
 import androidx.fragment.app.Fragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -34,6 +39,8 @@ public class RegisterFragment extends Fragment {
     private CheckBox cbFifa, cbFortnite, cbCod, cbMinecraft, cbGta, cbNba;
     private FirebaseAuth auth;
     private DatabaseReference dbRef;
+    private SwitchMaterial languageSwitch;
+
 
     public RegisterFragment() {
     }
@@ -52,6 +59,8 @@ public class RegisterFragment extends Fragment {
         etPhone = view.findViewById(R.id.etRegisterPhone);
         btnRegister = view.findViewById(R.id.btnRegister);
         tvAlreadyHaveAccount=view.findViewById(R.id.tvAlreadyHaveAccount);
+        languageSwitch=view.findViewById(R.id.languageSwitch);
+
 
         cbFifa = view.findViewById(R.id.cbFifa);
         cbFortnite = view.findViewById(R.id.cbFortnite);
@@ -69,6 +78,17 @@ public class RegisterFragment extends Fragment {
             }
 
         });
+
+        SharedPreferences prefs = requireContext().getSharedPreferences("settings", Context.MODE_PRIVATE);
+        boolean isHebrew = prefs.getBoolean("isHebrew", false);
+        languageSwitch.setChecked(isHebrew);
+        languageSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            String language = isChecked ? "iw" : "en";
+            LocaleListCompat appLocale = LocaleListCompat.forLanguageTags(language);
+            AppCompatDelegate.setApplicationLocales(appLocale);
+            prefs.edit().putBoolean("isHebrew", isChecked).apply(); //save choice
+        });
+
 
         btnRegister.setOnClickListener(new View.OnClickListener() { //register button
             @Override

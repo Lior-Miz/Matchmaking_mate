@@ -1,5 +1,7 @@
 package com.example.matchmaking_mate;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,9 +11,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.os.LocaleListCompat;
 import androidx.fragment.app.Fragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -22,6 +27,7 @@ public class LoginFragment extends Fragment {
     private Button btnLogin;
     private TextView linkRegister;
     private FirebaseAuth auth;
+    private SwitchMaterial languageSwitch;
 
     public LoginFragment() {
     }
@@ -36,6 +42,8 @@ public class LoginFragment extends Fragment {
         passwordInput = view.findViewById(R.id.Password);
         btnLogin = view.findViewById(R.id.btnLogin);
         linkRegister = view.findViewById(R.id.tvGotoRegister);
+        languageSwitch = view.findViewById(R.id.languageSwitch);
+
 
         linkRegister.setOnClickListener(new View.OnClickListener() { //register screen
             @Override
@@ -44,6 +52,16 @@ public class LoginFragment extends Fragment {
                         .replace(R.id.fragment_container, new RegisterFragment())
                         .commit();
             }
+        });
+
+        SharedPreferences prefs = requireContext().getSharedPreferences("settings", Context.MODE_PRIVATE);
+        boolean isHebrew = prefs.getBoolean("isHebrew", false);
+        languageSwitch.setChecked(isHebrew);
+        languageSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            String language = isChecked ? "iw" : "en";
+            LocaleListCompat appLocale = LocaleListCompat.forLanguageTags(language);
+            AppCompatDelegate.setApplicationLocales(appLocale);
+            prefs.edit().putBoolean("isHebrew", isChecked).apply(); //save choice
         });
 
         btnLogin.setOnClickListener(new View.OnClickListener() { //login button, collect info and validate and calls login function (loginuser)
