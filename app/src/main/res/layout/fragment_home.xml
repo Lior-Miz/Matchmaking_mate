@@ -104,13 +104,12 @@
             app:icon="@android:drawable/ic_lock_power_off"
             app:iconGravity="textStart" />
 
-        <com.google.android.material.switchmaterial.SwitchMaterial
-            android:id="@+id/languageSwitch"
-            android:layout_width="wrap_content"
+        <Button
+            android:id="@+id/btn_lang"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
             android:text="עברית / English"
-            android:textColor="@color/textColor" />
+            android:textColor="@color/static_text_color" />
 
 
     </LinearLayout>

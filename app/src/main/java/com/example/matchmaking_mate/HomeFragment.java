@@ -23,9 +23,10 @@ import com.google.firebase.auth.FirebaseUser;
 public class HomeFragment extends Fragment {
 
     private TextView tvEmail;
-    private Button btnLogout, btnProfile, btnMatches,btnInbox;
+    private Button btnLogout, btnProfile, btnMatches,btnInbox, btn_lang;
     private FirebaseAuth auth;
     private SwitchMaterial languageSwitch;
+
 
 
     public HomeFragment() {
@@ -43,23 +44,13 @@ public class HomeFragment extends Fragment {
         btnProfile = view.findViewById(R.id.btnMoveToProfile);
         btnMatches = view.findViewById(R.id.btnFindMatches);
         btnInbox = view.findViewById(R.id.btn_inbox);
-        languageSwitch=view.findViewById(R.id.languageSwitch);
+        btn_lang=view.findViewById(R.id.btn_lang);
 
 
         FirebaseUser user = auth.getCurrentUser(); //get current user thats logged in
         if (user != null) { //display email if user exists
             tvEmail.setText("Hello,\n" + user.getEmail());
         }
-
-        SharedPreferences prefs = requireContext().getSharedPreferences("settings", Context.MODE_PRIVATE);
-        boolean isHebrew = prefs.getBoolean("isHebrew", false);
-        languageSwitch.setChecked(isHebrew);
-        languageSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            String language = isChecked ? "iw" : "en";
-            LocaleListCompat appLocale = LocaleListCompat.forLanguageTags(language);
-            AppCompatDelegate.setApplicationLocales(appLocale);
-            prefs.edit().putBoolean("isHebrew", isChecked).apply(); //save choice
-        });
 
         btnProfile.setOnClickListener(new View.OnClickListener() { //profile screen button
             @Override
@@ -103,6 +94,21 @@ public class HomeFragment extends Fragment {
                             .commit();
                 }
             }
+        });
+
+        btn_lang.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+                String current_Lang="en";
+                current_Lang=AppCompatDelegate.getApplicationLocales().get(0).getLanguage();
+
+                if(current_Lang.equals("en")){
+                    AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("iw"));
+                }
+                else{
+                    AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("en"));
+                }
+           }
         });
 
         return view;

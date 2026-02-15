@@ -24,10 +24,9 @@ import com.google.firebase.auth.FirebaseAuth;
 public class LoginFragment extends Fragment {
 
     private EditText emailInput, passwordInput;
-    private Button btnLogin;
+    private Button btnLogin, btn_lang;
     private TextView linkRegister;
     private FirebaseAuth auth;
-    private SwitchMaterial languageSwitch;
 
     public LoginFragment() {
     }
@@ -42,7 +41,7 @@ public class LoginFragment extends Fragment {
         passwordInput = view.findViewById(R.id.Password);
         btnLogin = view.findViewById(R.id.btnLogin);
         linkRegister = view.findViewById(R.id.tvGotoRegister);
-        languageSwitch = view.findViewById(R.id.languageSwitch);
+        btn_lang=view.findViewById(R.id.btn_lang);
 
 
         linkRegister.setOnClickListener(new View.OnClickListener() { //register screen
@@ -54,15 +53,7 @@ public class LoginFragment extends Fragment {
             }
         });
 
-        SharedPreferences prefs = requireContext().getSharedPreferences("settings", Context.MODE_PRIVATE);
-        boolean isHebrew = prefs.getBoolean("isHebrew", false);
-        languageSwitch.setChecked(isHebrew);
-        languageSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            String language = isChecked ? "iw" : "en";
-            LocaleListCompat appLocale = LocaleListCompat.forLanguageTags(language);
-            AppCompatDelegate.setApplicationLocales(appLocale);
-            prefs.edit().putBoolean("isHebrew", isChecked).apply(); //save choice
-        });
+
 
         btnLogin.setOnClickListener(new View.OnClickListener() { //login button, collect info and validate and calls login function (loginuser)
             @Override
@@ -74,6 +65,21 @@ public class LoginFragment extends Fragment {
                     Toast.makeText(getContext(), "Please fill all fields", Toast.LENGTH_SHORT).show();
                 } else {
                     loginUser(txtEmail, txtPassword);
+                }
+            }
+        });
+
+        btn_lang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String current_Lang="en";
+                current_Lang=AppCompatDelegate.getApplicationLocales().get(0).getLanguage();
+
+                if(current_Lang.equals("en")){
+                    AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("iw"));
+                }
+                else{
+                    AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("en"));
                 }
             }
         });

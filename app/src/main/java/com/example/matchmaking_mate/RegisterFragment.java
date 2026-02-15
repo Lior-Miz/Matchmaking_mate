@@ -32,7 +32,7 @@ import java.util.List;
 public class RegisterFragment extends Fragment {
 
     private EditText etName, etEmail, etPassword, etPhone;
-    private Button btnRegister;
+    private Button btnRegister, btn_lang;
 
     private TextView tvAlreadyHaveAccount;
 
@@ -59,7 +59,7 @@ public class RegisterFragment extends Fragment {
         etPhone = view.findViewById(R.id.etRegisterPhone);
         btnRegister = view.findViewById(R.id.btnRegister);
         tvAlreadyHaveAccount=view.findViewById(R.id.tvAlreadyHaveAccount);
-        languageSwitch=view.findViewById(R.id.languageSwitch);
+        btn_lang=view.findViewById(R.id.btn_lang);
 
 
         cbFifa = view.findViewById(R.id.cbFifa);
@@ -79,21 +79,26 @@ public class RegisterFragment extends Fragment {
 
         });
 
-        SharedPreferences prefs = requireContext().getSharedPreferences("settings", Context.MODE_PRIVATE);
-        boolean isHebrew = prefs.getBoolean("isHebrew", false);
-        languageSwitch.setChecked(isHebrew);
-        languageSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            String language = isChecked ? "iw" : "en";
-            LocaleListCompat appLocale = LocaleListCompat.forLanguageTags(language);
-            AppCompatDelegate.setApplicationLocales(appLocale);
-            prefs.edit().putBoolean("isHebrew", isChecked).apply(); //save choice
-        });
-
 
         btnRegister.setOnClickListener(new View.OnClickListener() { //register button
             @Override
             public void onClick(View v) {
                 registerUser();
+            }
+        });
+
+        btn_lang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String current_Lang="en";
+                current_Lang=AppCompatDelegate.getApplicationLocales().get(0).getLanguage();
+
+                if(current_Lang.equals("en")){
+                    AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("iw"));
+                }
+                else{
+                    AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("en"));
+                }
             }
         });
 
