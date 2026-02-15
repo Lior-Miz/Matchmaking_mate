@@ -6,8 +6,7 @@
     android:background="@color/backgroundColor"
     android:gravity="center"
     android:orientation="vertical"
-    android:padding="24dp"
-    android:layoutDirection="ltr">
+    android:padding="24dp">
 
     <EditText
         android:id="@+id/Email"
@@ -20,7 +19,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/password"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:textAlignment="viewStart"
+        />
 
     <Button
         android:id="@+id/btnLogin"
@@ -44,8 +45,9 @@
 
     <Button
         android:id="@+id/btn_lang"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:text="עברית / English"
         android:textColor="@color/static_text_color" />
 
