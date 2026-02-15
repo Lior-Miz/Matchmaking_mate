@@ -42,10 +42,10 @@ public class CommunityChatFragment extends Fragment {
     private DatabaseReference dbRef;
 
     private String currentUserID;
-    private String communityID; // This is the "COM..." ID
+    private String communityID; //this is the "COM..." id
 
     public CommunityChatFragment() {
-        // Required empty public constructor
+
     }
 
     @Nullable
@@ -53,14 +53,14 @@ public class CommunityChatFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_chat, container, false);
 
-        // UI Initialization
+
         recyclerView = view.findViewById(R.id.recyclerChat);
         etMessage = view.findViewById(R.id.etMessageInput);
         btnSend = view.findViewById(R.id.btnSendMessage);
         btnBack = view.findViewById(R.id.btnBackFromChat);
         tvUserName = view.findViewById(R.id.tvChatUserName);
 
-        // RecyclerView Setup
+
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setStackFromEnd(true);
@@ -70,13 +70,11 @@ public class CommunityChatFragment extends Fragment {
         chatAdapter = new ChatAdapter(messageList);
         recyclerView.setAdapter(chatAdapter);
 
-        // Firebase User
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             currentUserID = user.getUid();
         }
 
-        // Get Arguments
         if (getArguments() != null) {
             communityID = getArguments().getString("targetId");
             String communityName = getArguments().getString("targetName");
@@ -86,22 +84,34 @@ public class CommunityChatFragment extends Fragment {
             }
         }
 
-        btnBack.setOnClickListener(v -> getParentFragmentManager().popBackStack());
 
-        btnSend.setOnClickListener(v -> {
-            String msg = etMessage.getText().toString();
-
-            if (currentUserID == null || communityID == null) {
-                Toast.makeText(getContext(), "Error: Connection failed", Toast.LENGTH_SHORT).show();
-                return;
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getParentFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, new Inbox())
+                        .commit();
             }
+        });
 
-            if (!TextUtils.isEmpty(msg)) {
-                sendCommunityMessage(currentUserID, communityID, msg);
-            } else {
-                Toast.makeText(getContext(), "Cannot send empty message", Toast.LENGTH_SHORT).show();
+
+        btnSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                String msg = etMessage.getText().toString();
+
+                if (currentUserID == null || communityID == null) {
+                    Toast.makeText(getContext(), "Error: Connection failed", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (!TextUtils.isEmpty(msg)) {
+                    sendCommunityMessage(currentUserID, communityID, msg);
+                } else {
+                    Toast.makeText(getContext(), "Cannot send empty message", Toast.LENGTH_SHORT).show();
+                }
+                etMessage.setText("");
             }
-            etMessage.setText("");
         });
 
         if (communityID != null) {
@@ -124,8 +134,8 @@ public class CommunityChatFragment extends Fragment {
                     Message msg = new Message(senderID, groupID, message_with_sender, System.currentTimeMillis());
                     messageList.add(msg);
 
-                    // Save message ONLY ONCE in the shared group path
-                    reference.child("Groups").child(groupID).push().setValue(messageList);
+
+                    reference.child("Groups").child(groupID).push().setValue(messageList); //save message only once in the shared group path
                 }
                 chatAdapter.notifyDataSetChanged();
             }

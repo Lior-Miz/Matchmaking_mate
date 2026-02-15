@@ -135,15 +135,9 @@ public class OtherUserProfileFragment extends Fragment {
 
                     if (!friends.contains(userId)) {                         //prevents duplicating
                         friends.add(userId);
-                        myRef.child("friends").setValue(friends).addOnCompleteListener(task -> {
-                            if (task.isSuccessful()) {
-                                Toast.makeText(getContext(), "Friend added!", Toast.LENGTH_SHORT).show();
-                                loadSuggestedFriends();
-                            } else {
-                                Toast.makeText(getContext(), "Failed to add friend", Toast.LENGTH_SHORT).show();
-                                btnAddFriend.setVisibility(View.VISIBLE);
-                            }
-                        });
+                        myRef.child("friends").setValue(friends);
+                        Toast.makeText(getContext(), "Friend added!", Toast.LENGTH_SHORT).show();
+                        loadSuggestedFriends();
                     } else {
                         Toast.makeText(getContext(), "Already a friend", Toast.LENGTH_SHORT).show();
                     }
@@ -295,10 +289,14 @@ public class OtherUserProfileFragment extends Fragment {
                     chip.setCheckable(false);
                     chip.setTag(friendUser.getUserid());
 
-                    chip.setOnClickListener(v -> {
-                        moveToOtherID(friendUser);
-                        Toast.makeText(getContext(), friendUser.getFullname() + " was clicked", Toast.LENGTH_SHORT).show();
+
+                    chip.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            moveToOtherID(friendUser);
+                        }
                     });
+
                     ChipSuggestFriend.addView(chip);
                 }
             }

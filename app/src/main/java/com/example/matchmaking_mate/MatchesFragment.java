@@ -125,12 +125,11 @@ public class MatchesFragment extends Fragment {
 
         String myId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         dbRef = FirebaseDatabase.getInstance().getReference("Users");
-
         dbRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 fullList.clear();
-                for (DataSnapshot data : snapshot.getChildren()) { //loop through users in firebase
+                for (DataSnapshot data : snapshot.getChildren()) { //loop through users(children) in firebase
                     User user = data.getValue(User.class);
 
                     if (user != null && data.getKey() != null && !data.getKey().equals(myId)) { //skip current user

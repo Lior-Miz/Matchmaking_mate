@@ -116,7 +116,7 @@ public class Inbox extends Fragment {
         gamesRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot data : snapshot.getChildren()) {
+                for (DataSnapshot data : snapshot.getChildren()) {  //get snapshop from database, get the users and their games
                     String gameName = data.getValue(String.class);
 
                     User community = new User("Community: " +gameName,"","","COM:"+gameName);
