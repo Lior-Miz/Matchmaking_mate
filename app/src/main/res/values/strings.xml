@@ -44,6 +44,11 @@
     <string name="sendMessage">Send Message</string>
     <string name="suggestedFriends">Suggested friends</string>
 
+    <string name="myFriends">My Friends:</string>
+    <string name="welcomeHome">Welcome Home!</string>
+    <string name="chats">Chats</string>
+    <string name="matches_title">Matches</string>
+
 
 
 

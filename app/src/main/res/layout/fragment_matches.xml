@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Matches"
+            android:text="@string/matches_title"
             android:textColor="@color/textColor"
             android:textSize="24sp"
             android:textStyle="bold" />

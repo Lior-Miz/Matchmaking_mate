@@ -49,7 +49,7 @@ public class HomeFragment extends Fragment {
 
         FirebaseUser user = auth.getCurrentUser(); //get current user thats logged in
         if (user != null) { //display email if user exists
-            tvEmail.setText("Hello,\n" + user.getEmail());
+            tvEmail.setText(user.getEmail());
         }
 
         btnProfile.setOnClickListener(new View.OnClickListener() { //profile screen button

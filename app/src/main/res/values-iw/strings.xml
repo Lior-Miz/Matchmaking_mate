@@ -34,4 +34,9 @@
     <string name="sendMessage">שלח הודעה</string>
     <string name="suggestedFriends">חברים מוצעים</string>
 
+    <string name="myFriends">חברים שלי:</string>
+    <string name="welcomeHome">ברוך הבא!</string>
+    <string name="chats">צאטים</string>
+    <string name="matches_title">התאמות</string>
+
 </resources>

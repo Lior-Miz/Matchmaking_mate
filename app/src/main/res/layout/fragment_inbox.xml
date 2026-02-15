@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Chats"
+            android:text="@string/chats"
             android:textColor="@color/textColor"
             android:textSize="24sp"
             android:textStyle="bold" />
