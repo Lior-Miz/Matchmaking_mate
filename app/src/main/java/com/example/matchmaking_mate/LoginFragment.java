@@ -95,16 +95,10 @@ public class LoginFragment extends Fragment {
                         if (task.isSuccessful()) {
                             Toast.makeText(getContext(), "Login successful", Toast.LENGTH_SHORT).show();
                             if (getActivity() != null) {
-                                getParentFragmentManager().beginTransaction()
-                                        .replace(R.id.fragment_container, new HomeFragment())
-                                        .commit();
+                                getParentFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
                             }
                         } else {  // if it fails display error message
-                            String msg = "Authentication failed";
-                            if (task.getException() != null) {
-                                msg = task.getException().getMessage();
-                            }
-                            Toast.makeText(getContext(), msg, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), "Login failed", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
