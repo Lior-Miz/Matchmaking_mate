@@ -1,3 +1,8 @@
+![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)
+![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
+![Firebase](https://img.shields.io/badge/Firebase-039BE5?style=for-the-badge&logo=Firebase&logoColor=white)
+![Android Studio](https://img.shields.io/badge/Android%20Studio-3DDC84.svg?style=for-the-badge&logo=android-studio&logoColor=white)
+
 # Matchmaking Mate 🎮
 
 **Matchmaking Mate** is a social Android application designed to connect gamers worldwide. It allows users to find gaming partners, make new friends, and chat easily and quickly with just a few taps.
