@@ -1,12 +1,14 @@
+<div align="center">
 
 ![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)
 ![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
 ![Firebase](https://img.shields.io/badge/Firebase-039BE5?style=for-the-badge&logo=Firebase&logoColor=white)
 ![Android Studio](https://img.shields.io/badge/Android%20Studio-3DDC84.svg?style=for-the-badge&logo=android-studio&logoColor=white)
-<div align="center">
-
 
 # Matchmaking Mate 🎮
+
+**B.Sc. Computer Science Project**
+**HIT - Holon Institute of Technology**
 
 **Matchmaking Mate** is a social platform designed to connect gamers worldwide.
 The goal of this project was to build a fully functional Android application that solves a real-world problem: finding the perfect gaming partner based on shared interests.
@@ -19,6 +21,7 @@ The goal of this project was to build a fully functional Android application tha
 - [Project Overview](#-project-overview)
 - [App Flow & User Journey](#-app-flow--user-journey)
 - [Tech Stack](#-tech-stack)
+- [Database Structure](#-database-structure)
 - [Screenshots](#-screenshots)
 - [Developed By](#-developed-by)
 
@@ -61,6 +64,19 @@ This project was built to demonstrate proficiency in native Android development:
 
 ---
 
+## 💾 Database Structure
+
+The project utilizes **Firebase Realtime Database**. The data is structured as a NoSQL tree:
+
+* **Users** (Collection)
+    * `UserID`: Stores Full Name, Email, Phone, Favorite Games List, Friends List.
+* **Chats** (Private Messaging)
+    * `SenderID` -> `ReceiverID` -> `MessageID`: Stores message content and timestamp.
+* **Groups** (Community Channels)
+    * `GameName` (e.g., GTA V) -> `MessageID`: Stores public group messages.
+
+---
+
 ## 📱 Screenshots
 
 Here is a glimpse of the app's interface:
@@ -77,13 +93,13 @@ Here is a glimpse of the app's interface:
 
 ---
 
+## 👨‍💻 Developed By
+
 <div align="center">
 
-### 👨‍💻 Developed By
-
-**[Lior Mizrachi](https://github.com/Lior-Miz)**
-**[Abed Haj Yehia](https://github.com/AbedHaj)**
-**[Amit Hazan](https://github.com/amith372)**
+| Lior Mizrachi | Abed Haj Yehia | Amit Hazan |
+| :---: | :---: | :---: |
+| [**GitHub Profile**](https://github.com/Lior-Miz) | [**GitHub Profile**](https://github.com/AbedHaj) | [**GitHub Profile**](https://github.com/amith372) |
 
 *Computer Science Department*
 *HIT - Holon Institute of Technology*
