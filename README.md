@@ -1,3 +1,4 @@
+
 ![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)
 ![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
 ![Firebase](https://img.shields.io/badge/Firebase-039BE5?style=for-the-badge&logo=Firebase&logoColor=white)
@@ -5,11 +6,7 @@
 <div align="center">
 
 
-
 # Matchmaking Mate 🎮
-
-**B.Sc. Computer Science Project**
-**HIT - Holon Institute of Technology**
 
 **Matchmaking Mate** is a social platform designed to connect gamers worldwide.
 The goal of this project was to build a fully functional Android application that solves a real-world problem: finding the perfect gaming partner based on shared interests.
@@ -18,15 +15,25 @@ The goal of this project was to build a fully functional Android application tha
 
 ---
 
+## 📋 Table of Contents
+- [Project Overview](#-project-overview)
+- [App Flow & User Journey](#-app-flow--user-journey)
+- [Tech Stack](#-tech-stack)
+- [Screenshots](#-screenshots)
+- [Developed By](#-developed-by)
+
+---
+
 ## 🌟 Project Overview
 
-This application serves as a bridge between players. Unlike generic social networks, Matchmaking Mate focuses specifically on gaming preferences, allowing users to filter potential friends based on the games they play (e.g., Fortnite, FIFA, GTA V).
+This application serves as a bridge between players. Unlike generic social networks, Matchmaking Mate focuses specifically on gaming preferences, allowing users to filter potential friends based on the games they play.
 
 ### Key Functionalities:
-* **Smart Matching:** Filters users based on specific game selections.
+* **Smart Matching:** Filters users based on specific game selections (e.g., Fortnite, FIFA, GTA V).
 * **Live Communication:** A real-time chat system powered by Firebase Realtime Database.
-* **Social Graph:** Ability to send friend requests, accept/decline matches, and view profiles.
-* **Secure Environment:** Full authentication system (Sign Up/Login) to ensure user privacy.
+* **Group Chats:** Community channels based on specific games (e.g., "COM:GTA V").
+* **Social Graph:** Ability to manage a friend list, accept requests, and view full user profiles.
+* **Secure Environment:** Full authentication system to ensure user privacy.
 
 ---
 
@@ -37,7 +44,7 @@ Here is how the application works from the user's perspective:
 1.  **Onboarding:** The user creates an account using their email and password. During sign-up, they select their favorite games to build their gamer profile.
 2.  **Discovery:** On the home screen, the user can search for other players. The system filters the list to show relevant matches based on the selected games.
 3.  **Connection:** By clicking on a user, the full profile is displayed. The user can then choose to "Add Friend".
-4.  **Interaction:** Once connected, users can start a private chat, exchanging messages instantly.
+4.  **Interaction:** Once connected, users can start a private chat or join game-specific group chats.
 
 ---
 
@@ -50,7 +57,7 @@ This project was built to demonstrate proficiency in native Android development:
 * **UI/UX:** XML Layouts (ConstraintLayout, RecyclerView, CardView)
 * **Backend & Database (Firebase):**
     * **Firebase Authentication:** Handles secure user registration and login sessions.
-    * **Firebase Realtime Database:** Stores user profiles, friendships, and chat messages with instant synchronization across devices.
+    * **Firebase Realtime Database:** Stores user profiles, friendships, private chats, and group messages with instant synchronization.
 
 ---
 
