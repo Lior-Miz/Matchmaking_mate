@@ -1,3 +1,5 @@
+<div align="center">
+
 ![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)
 ![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
 ![Firebase](https://img.shields.io/badge/Firebase-039BE5?style=for-the-badge&logo=Firebase&logoColor=white)
@@ -5,35 +7,55 @@
 
 # Matchmaking Mate 🎮
 
-**Matchmaking Mate** is a social Android application designed to connect gamers worldwide. It allows users to find gaming partners, make new friends, and chat easily and quickly with just a few taps.
+**B.Sc. Computer Science Project**
+**HIT - Holon Institute of Technology**
+
+**Matchmaking Mate** is a social platform designed to connect gamers worldwide.
+The goal of this project was to build a fully functional Android application that solves a real-world problem: finding the perfect gaming partner based on shared interests.
+
+</div>
 
 ---
 
-## 🌟 Key Features
+## 🌟 Project Overview
 
-* **Global Matchmaking:** Find gaming partners based on shared interests and favorite games.
-* **Real-Time Chat:** Fast messaging system to communicate with other players instantly.
-* **User Profiles:** Create a personal gamer profile and view other players' details.
-* **Friend System:** Add users to your friend list and manage connections.
-* **Secure Authentication:** Safe sign-up and login process using Firebase.
+This application serves as a bridge between players. Unlike generic social networks, Matchmaking Mate focuses specifically on gaming preferences, allowing users to filter potential friends based on the games they play (e.g., Fortnite, FIFA, GTA V).
+
+### Key Functionalities:
+* **Smart Matching:** Filters users based on specific game selections.
+* **Live Communication:** A real-time chat system powered by Firebase Realtime Database.
+* **Social Graph:** Ability to send friend requests, accept/decline matches, and view profiles.
+* **Secure Environment:** Full authentication system (Sign Up/Login) to ensure user privacy.
+
+---
+
+## 📱 App Flow & User Journey
+
+Here is how the application works from the user's perspective:
+
+1.  **Onboarding:** The user creates an account using their email and password. During sign-up, they select their favorite games to build their gamer profile.
+2.  **Discovery:** On the home screen, the user can search for other players. The system filters the list to show relevant matches based on the selected games.
+3.  **Connection:** By clicking on a user, the full profile is displayed. The user can then choose to "Add Friend".
+4.  **Interaction:** Once connected, users can start a private chat, exchanging messages instantly.
 
 ---
 
 ## 🛠️ Tech Stack
 
-This project is built using Android Studio with the following technologies:
+This project was built to demonstrate proficiency in native Android development:
 
-* **Java:** Core logic and development.
-* **XML:** UI/UX design and layouts.
-* **Firebase:**
-    * **Authentication:** User management (Sign up/Login).
-    * **Realtime Database / Firestore:** Data storage and instant messaging.
+* **Language:** Java
+* **IDE:** Android Studio
+* **UI/UX:** XML Layouts (ConstraintLayout, RecyclerView, CardView)
+* **Backend & Database (Firebase):**
+    * **Firebase Authentication:** Handles secure user registration and login sessions.
+    * **Firebase Realtime Database:** Stores user profiles, friendships, and chat messages with instant synchronization across devices.
 
 ---
 
 ## 📱 Screenshots
 
-Here is a glimpse of the app's main features:
+Here is a glimpse of the app's interface:
 
 ### Onboarding & Discovery
 | Sign Up | Login | Matchmaking |
@@ -47,36 +69,15 @@ Here is a glimpse of the app's main features:
 
 ---
 
-## 🚀 Getting Started
+<div align="center">
 
-Follow these instructions to run the project on your local machine.
+### 👨‍💻 Developed By
 
-### Prerequisites
-* Android Studio installed.
-* Internet connection (for Gradle and Firebase sync).
+**[Lior Mizrachi](https://github.com/Lior-Miz)**
+**[Abed Haj Yehia](https://github.com/AbedHaj)**
+**[Amit Hazan](https://github.com/amith372)**
 
-### Installation
+*Computer Science Department*
+*HIT - Holon Institute of Technology*
 
-1.  **Clone the repository:**
-    ```bash
-    git clone [https://github.com/YourUsername/Matchmaking-Mate.git](https://github.com/YourUsername/Matchmaking-Mate.git)
-    ```
-
-2.  **Open in Android Studio:**
-    Launch Android Studio, select `Open`, and navigate to the cloned project folder.
-
-3.  **Firebase Setup (Important!):**
-    * This project relies on Firebase. You must provide your own configuration file.
-    * Create a project in the [Firebase Console](https://console.firebase.google.com/).
-    * Download the `google-services.json` file.
-    * Place the file inside the `app/` directory of the project.
-
-4.  **Run the App:**
-    * Connect an Android device or start an Emulator.
-    * Click the ▶ (Run) button in Android Studio.
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome! Feel free to open issues or submit pull requests to improve the app.
+</div>
