@@ -1,7 +1,5 @@
 package com.example.matchmaking_mate;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -17,6 +15,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.os.LocaleListCompat;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.switchmaterial.SwitchMaterial;
@@ -39,7 +39,7 @@ public class RegisterFragment extends Fragment {
     private CheckBox cbFifa, cbFortnite, cbCod, cbMinecraft, cbGta, cbNba;
     private FirebaseAuth auth;
     private DatabaseReference dbRef;
-    private SwitchMaterial languageSwitch;
+    //private SwitchMaterial languageSwitch;
 
 
     public RegisterFragment() {
@@ -71,10 +71,8 @@ public class RegisterFragment extends Fragment {
 
         tvAlreadyHaveAccount.setOnClickListener(new View.OnClickListener() { //button to send back to login if you have account
             @Override
-            public void onClick(View v) {
-                getParentFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container, new LoginFragment())
-                        .commit();
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_registerFragment_to_loginFragment);
             }
 
         });
@@ -162,9 +160,7 @@ public class RegisterFragment extends Fragment {
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
                             Toast.makeText(getContext(), "Registration Successful!", Toast.LENGTH_SHORT).show();
-                            getParentFragmentManager().beginTransaction()
-                                    .replace(R.id.fragment_container, new HomeFragment())
-                                    .commit();
+                            Navigation.findNavController(getView()).navigate(R.id.action_registerFragment_to_homeFragment);
                         } else {
                             Toast.makeText(getContext(), "Database Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }

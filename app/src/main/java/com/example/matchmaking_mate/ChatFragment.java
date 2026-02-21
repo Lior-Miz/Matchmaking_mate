@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -84,8 +85,8 @@ public class ChatFragment extends Fragment {
 
         btnBack.setOnClickListener(new View.OnClickListener() { //back button
             @Override
-            public void onClick(View v) {
-                getParentFragmentManager().popBackStack();
+            public void onClick(View view) {
+                Navigation.findNavController(view).popBackStack();
             }
         });
 

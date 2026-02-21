@@ -11,6 +11,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+
 import com.google.firebase.auth.FirebaseAuth;
 
 import com.google.firebase.database.DataSnapshot;
@@ -95,8 +97,8 @@ public class OtherUserProfileFragment extends Fragment {
 
         btnBack.setOnClickListener(new View.OnClickListener() { //back button
             @Override
-            public void onClick(View v) {
-                getParentFragmentManager().popBackStack();
+            public void onClick(View view) {
+                Navigation.findNavController(view).popBackStack();
             }
         });
 
@@ -337,10 +339,7 @@ public class OtherUserProfileFragment extends Fragment {
         args.putString("targetName", userName);
         chatFragment.setArguments(args);
 
-        getParentFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, chatFragment)
-                .addToBackStack(null)
-                .commit();
+        Navigation.findNavController(getView()).navigate(R.id.action_otherUserProfileFragment_to_chatFragment, args);
     }
 
     private void moveToOtherID(User user) {  //open other user profile
@@ -354,7 +353,6 @@ public class OtherUserProfileFragment extends Fragment {
         }
         fragment.setArguments(bundle);
 
-        getParentFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, fragment).addToBackStack(null).commit();
+        Navigation.findNavController(getView()).navigate(R.id.action_otherUserProfileFragment_self, bundle);
     }
 }

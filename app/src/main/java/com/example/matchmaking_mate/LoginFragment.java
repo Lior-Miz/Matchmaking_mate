@@ -14,6 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.os.LocaleListCompat;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.switchmaterial.SwitchMaterial;
@@ -47,9 +49,7 @@ public class LoginFragment extends Fragment {
         linkRegister.setOnClickListener(new View.OnClickListener() { //register screen
             @Override
             public void onClick(View v) {
-                getParentFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container, new RegisterFragment())
-                        .commit();
+                Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_registerFragment);
             }
         });
 
@@ -95,7 +95,7 @@ public class LoginFragment extends Fragment {
                         if (login_Attempt.isSuccessful()) {
                             Toast.makeText(getContext(), "Login successful", Toast.LENGTH_SHORT).show();
                             if (getActivity() != null) {
-                                getParentFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+                                Navigation.findNavController(getView()).navigate(R.id.action_loginFragment_to_homeFragment);
                             }
                         } else {  // if it fails display error message
                             Toast.makeText(getContext(), "Login failed", Toast.LENGTH_SHORT).show();

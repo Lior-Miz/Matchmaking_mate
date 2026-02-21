@@ -13,6 +13,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.firebase.auth.FirebaseAuth;
@@ -63,7 +65,7 @@ public class ProfileFragment extends Fragment {
         btnBackProf.setOnClickListener(new View.OnClickListener() { //back button
             @Override
             public void onClick(View v) {
-                getParentFragmentManager().popBackStack();
+                Navigation.findNavController(view).popBackStack();
             }
         });
 
@@ -71,9 +73,13 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 auth.signOut();
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
+                androidx.navigation.NavOptions navOptions = new androidx.navigation.NavOptions.Builder()
+                        .setPopUpTo(R.id.homeFragment, true) // Clears the history so they can't press 'Back' to get in
+                        .build();
+
+                // 2. Navigate directly to the login screen
+                androidx.navigation.Navigation.findNavController(v)
+                        .navigate(R.id.loginFragment, null, navOptions);
             }
         });
 

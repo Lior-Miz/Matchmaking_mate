@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -108,10 +109,8 @@ public class MatchesFragment extends Fragment {
 
         btnBack.setOnClickListener(new View.OnClickListener() { //back button
             @Override
-            public void onClick(View v) {
-                getParentFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container, new HomeFragment())
-                        .commit();
+            public void onClick(View view) {
+                Navigation.findNavController(view).popBackStack();
             }
         });
 
@@ -190,10 +189,8 @@ public class MatchesFragment extends Fragment {
         }
         fragment.setArguments(bundle);
 
-        getParentFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, fragment)
-                .addToBackStack(null)
-                .commit();
+        Navigation.findNavController(requireView())
+                .navigate(R.id.action_matchesFragment_to_otherUserProfileFragment, bundle);
     }
 
 

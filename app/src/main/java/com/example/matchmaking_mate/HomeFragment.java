@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.os.LocaleListCompat;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.firebase.auth.FirebaseAuth;
@@ -54,44 +55,33 @@ public class HomeFragment extends Fragment {
 
         btnProfile.setOnClickListener(new View.OnClickListener() { //profile screen button
             @Override
-            public void onClick(View v) {
-                getParentFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container, new ProfileFragment())
-                        .addToBackStack(null) //allows back button
-                        .commit();
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_profileFragment);
             }
         });
 
         btnMatches.setOnClickListener(new View.OnClickListener() { //go to matches screen
             @Override
-            public void onClick(View v) {
-                getParentFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container, new MatchesFragment())
-                        .addToBackStack(null)
-                        .commit();
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_matchesFragment);
             }
         });
         btnInbox.setOnClickListener(new View.OnClickListener() { //inbox button
             @Override
-            public void onClick(View v) {
-                getParentFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container, new Inbox())
-                        .addToBackStack(null)
-                        .commit();
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_inbox);
             }
         });
 
 
         btnLogout.setOnClickListener(new View.OnClickListener() { //logout button
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 auth.signOut(); //singout from firebase
                 Toast.makeText(getContext(), "Logged out successfully", Toast.LENGTH_SHORT).show();
 
                 if (getActivity() != null) { //go back to login screen
-                    getParentFragmentManager().beginTransaction()
-                            .replace(R.id.fragment_container, new LoginFragment())
-                            .commit();
+                    Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_loginFragment);
                 }
             }
         });

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -95,10 +96,8 @@ public class Inbox extends Fragment {
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                getParentFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container, new HomeFragment())
-                        .commit();
+            public void onClick(View view) {
+                Navigation.findNavController(view).popBackStack();
             }
         });
 
@@ -210,10 +209,7 @@ public class Inbox extends Fragment {
             args.putString("targetId", user.getUserid());
             args.putString("targetName", user.getFullname());
             communitychatFragment.setArguments(args);
-            getParentFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, communitychatFragment)
-                    .addToBackStack(null)
-                    .commit();
+            Navigation.findNavController(getView()).navigate(R.id.action_inbox_to_communityChatFragment,args);
         }
 
         else {
@@ -223,10 +219,7 @@ public class Inbox extends Fragment {
             args.putString("targetName", user.getFullname());
             chatFragment.setArguments(args);
 
-            getParentFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, chatFragment)
-                    .addToBackStack(null)
-                    .commit();
+            Navigation.findNavController(getView()).navigate(R.id.action_inbox_to_chatFragment,args);
         }
     }
 
