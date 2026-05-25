@@ -7,7 +7,7 @@
 
 <div align="center">
 
-# Matchmaking Mate 🎮
+# Matchmaking Mate 
 
 
 **Matchmaking Mate** is a social platform designed to connect gamers worldwide.
@@ -17,7 +17,7 @@ The goal of this project was to build a fully functional Android application tha
 
 ---
 
-## 📋 Table of Contents
+##  Table of Contents
 - [Project Overview](#-project-overview)
 - [App Flow & User Journey](#-app-flow--user-journey)
 - [Tech Stack](#-tech-stack)
@@ -27,7 +27,7 @@ The goal of this project was to build a fully functional Android application tha
 
 ---
 
-## 🌟 Project Overview
+##  Project Overview
 
 This application serves as a bridge between players. Unlike generic social networks, Matchmaking Mate focuses specifically on gaming preferences, allowing users to filter potential friends based on the games they play.
 
@@ -40,7 +40,7 @@ This application serves as a bridge between players. Unlike generic social netwo
 
 ---
 
-## 📱 App Flow & User Journey
+##  App Flow & User Journey
 
 Here is how the application works from the user's perspective:
 
@@ -51,7 +51,7 @@ Here is how the application works from the user's perspective:
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 This project was built to demonstrate proficiency in native Android development:
 
@@ -64,7 +64,7 @@ This project was built to demonstrate proficiency in native Android development:
 
 ---
 
-## 💾 Database Structure
+##  Database Structure
 
 The project utilizes **Firebase Realtime Database**. The data is structured as a NoSQL tree:
 
@@ -77,7 +77,7 @@ The project utilizes **Firebase Realtime Database**. The data is structured as a
 
 ---
 
-## 📱 Screenshots
+##  Screenshots
 
 Here is a glimpse of the app's interface:
 
@@ -93,7 +93,7 @@ Here is a glimpse of the app's interface:
 
 ---
 
-## 👨‍💻 Developed By
+##  Developed By
 
 <div align="center">
 
